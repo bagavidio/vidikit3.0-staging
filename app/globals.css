@@ -1,0 +1,392 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ═══════════════════════════════════════════════════════════════
+   VIDI Design System — Global Design Tokens
+   Source of Truth · vidikit
+   ═══════════════════════════════════════════════════════════════
+   TOKEN ARCHITECTURE (two layers):
+   ┌─ Layer 1 · Primitive Palette ──────────────────────────────┐
+   │  Raw hex → HSL → CSS var    e.g. --primary-30: hsl(…)     │
+   │  Tailwind utility           e.g. bg-primary-30             │
+   │  Stable. Never changes per theme.                          │
+   └────────────────────────────────────────────────────────────┘
+   ┌─ Layer 2 · Semantic / Brand tokens ────────────────────────┐
+   │  References Layer 1         e.g. --vidi-primary: var(…)   │
+   │  Changes between light/dark. Controls the 'vibe'.         │
+   └────────────────────────────────────────────────────────────┘
+
+   NOTE — Tailwind v4 (no tailwind.config.ts):
+   Color palette is configured here via @theme inline, not via
+   tailwind.config.ts. The @theme block IS the config.
+   For programmatic access (React Native / Storybook / JS),
+   see lib/tokens/palette.ts.
+   ═══════════════════════════════════════════════════════════════ */
+
+@theme inline {
+  /* ── Typography ───────────────────────────────────────────── */
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+
+  /* ── shadcn semantic color tokens ────────────────────────── */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* ── Radius scale ─────────────────────────────────────────── */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  /* ── VIDI Semantic Brand Tokens ───────────────────────────────
+     Access as Tailwind utilities: bg-vidi-primary, text-vidi-extended
+     ─────────────────────────────────────────────────────────── */
+  --color-vidi-primary: var(--vidi-primary);
+  --color-vidi-primary-hover: var(--vidi-primary-hover);
+  --color-vidi-primary-active: var(--vidi-primary-active);
+  --color-vidi-primary-foreground: var(--vidi-primary-foreground);
+  --color-vidi-extended: var(--vidi-extended);
+  --color-vidi-extended-hover: var(--vidi-extended-hover);
+  --color-vidi-extended-active: var(--vidi-extended-active);
+  --color-vidi-extended-foreground: var(--vidi-extended-foreground);
+  --color-vidi-neutral: var(--vidi-neutral);
+  --color-vidi-neutral-hover: var(--vidi-neutral-hover);
+  --color-vidi-neutral-active: var(--vidi-neutral-active);
+  --color-vidi-neutral-foreground: var(--vidi-neutral-foreground);
+
+  /* ── Primitive Color Palette ─────────────────────────────────
+     Tailwind utilities generated:
+       bg-primary-30    text-blue-70    border-tosca-50
+       bg-green-10      fill-purple-40  stroke-pink-20
+       bg-yellow-30     text-neutral-60
+       bg-overlay-dark  bg-overlay-light
+     ─────────────────────────────────────────────────────────── */
+
+  /* Primary (Red) */
+  --color-primary-70: var(--primary-70);
+  --color-primary-60: var(--primary-60);
+  --color-primary-50: var(--primary-50);
+  --color-primary-40: var(--primary-40);
+  --color-primary-30: var(--primary-30);
+  --color-primary-20: var(--primary-20);
+  --color-primary-10: var(--primary-10);
+
+  /* Blue */
+  --color-blue-70: var(--blue-70);
+  --color-blue-60: var(--blue-60);
+  --color-blue-50: var(--blue-50);
+  --color-blue-40: var(--blue-40);
+  --color-blue-30: var(--blue-30);
+  --color-blue-20: var(--blue-20);
+  --color-blue-10: var(--blue-10);
+
+  /* Tosca */
+  --color-tosca-70: var(--tosca-70);
+  --color-tosca-60: var(--tosca-60);
+  --color-tosca-50: var(--tosca-50);
+  --color-tosca-40: var(--tosca-40);
+  --color-tosca-30: var(--tosca-30);
+  --color-tosca-20: var(--tosca-20);
+  --color-tosca-10: var(--tosca-10);
+
+  /* Green */
+  --color-green-70: var(--green-70);
+  --color-green-60: var(--green-60);
+  --color-green-50: var(--green-50);
+  --color-green-40: var(--green-40);
+  --color-green-30: var(--green-30);
+  --color-green-20: var(--green-20);
+  --color-green-10: var(--green-10);
+
+  /* Purple */
+  --color-purple-70: var(--purple-70);
+  --color-purple-60: var(--purple-60);
+  --color-purple-50: var(--purple-50);
+  --color-purple-40: var(--purple-40);
+  --color-purple-30: var(--purple-30);
+  --color-purple-20: var(--purple-20);
+  --color-purple-10: var(--purple-10);
+
+  /* Pink */
+  --color-pink-70: var(--pink-70);
+  --color-pink-60: var(--pink-60);
+  --color-pink-50: var(--pink-50);
+  --color-pink-40: var(--pink-40);
+  --color-pink-30: var(--pink-30);
+  --color-pink-20: var(--pink-20);
+  --color-pink-10: var(--pink-10);
+
+  /* Yellow */
+  --color-yellow-70: var(--yellow-70);
+  --color-yellow-60: var(--yellow-60);
+  --color-yellow-50: var(--yellow-50);
+  --color-yellow-40: var(--yellow-40);
+  --color-yellow-30: var(--yellow-30);
+  --color-yellow-20: var(--yellow-20);
+  --color-yellow-10: var(--yellow-10);
+
+  /* Neutral (Gray) */
+  --color-neutral-70: var(--neutral-70);
+  --color-neutral-60: var(--neutral-60);
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-40: var(--neutral-40);
+  --color-neutral-30: var(--neutral-30);
+  --color-neutral-20: var(--neutral-20);
+  --color-neutral-10: var(--neutral-10);
+
+  /* Overlays */
+  --color-overlay-dark: var(--overlay-dark);
+  --color-overlay-light: var(--overlay-light);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   :root — Light Theme
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  /* ── Geometry ─────────────────────────────────────────────── */
+  --radius: 0.5rem;
+
+  /* ════════════════════════════════════════════════════════════
+     LAYER 1 · Primitive Color Palette
+     Hex → HSL (space-separated CSS4 syntax)
+     These values NEVER change between light/dark theme.
+     ════════════════════════════════════════════════════════════ */
+
+  /* ── Primary (Red) ────────────────────────────── H ≈ 349° */
+  --primary-70: hsl(349 100% 25%);  /* #7D0017 */
+  --primary-60: hsl(349  95% 35%);  /* #B00423 */
+  --primary-50: hsl(349  95% 41%);  /* #CA0528 */
+  --primary-40: hsl(349  96% 46%);  /* #E3052D */
+  --primary-30: hsl(349  98% 55%);  /* #FD1B44 ← brand core */
+  --primary-20: hsl(349  99% 65%);  /* #FE5070 */
+  --primary-10: hsl(349  78% 88%);  /* #F8C8D1 */
+
+  /* ── Blue ─────────────────────────────────────── H ≈ 213° */
+  --blue-70: hsl(213 100% 29%);  /* #004496 */
+  --blue-60: hsl(213  99% 36%);  /* #0153B6 */
+  --blue-50: hsl(213 100% 40%);  /* #005DCC */
+  --blue-40: hsl(213 100% 44%);  /* #0067E2 */
+  --blue-30: hsl(213 100% 50%);  /* #0074FF ← brand extended */
+  --blue-20: hsl(213  90% 58%);  /* #348BF4 */
+  --blue-10: hsl(213 100% 90%);  /* #CAE2FF */
+
+  /* ── Tosca ────────────────────────────────────── H ≈ 183° */
+  --tosca-70: hsl(184  86% 19%);  /* #07575C */
+  --tosca-60: hsl(183  85% 26%);  /* #0A747A */
+  --tosca-50: hsl(183  85% 32%);  /* #0C9199 */
+  --tosca-40: hsl(184  85% 34%);  /* #0D9AA3 */
+  --tosca-30: hsl(184  85% 43%);  /* #10C1CC ← brand core */
+  --tosca-20: hsl(184  77% 48%);  /* #1CCEDA */
+  --tosca-10: hsl(183  74% 85%);  /* #BDF2F5 */
+
+  /* ── Green ────────────────────────────────────── H ≈ 147° */
+  --green-70: hsl(140  86% 25%);  /* #09782E */
+  --green-60: hsl(148  91% 29%);  /* #078E45 */
+  --green-50: hsl(148  83% 37%);  /* #10AD58 */
+  --green-40: hsl(148  90% 38%);  /* #0ABA5B */
+  --green-30: hsl(147  73% 49%);  /* #22DA76 ← brand core */
+  --green-20: hsl(148  79% 52%);  /* #25E57E */
+  --green-10: hsl(147  87% 88%);  /* #C4FBDD */
+
+  /* ── Purple ───────────────────────────────────── H ≈ 266° */
+  --purple-70: hsl(266  86% 20%);  /* #2D075D */
+  --purple-60: hsl(266  85% 26%);  /* #3C0A7C */
+  --purple-50: hsl(266  85% 33%);  /* #4B0C9B */
+  --purple-40: hsl(266  85% 35%);  /* #500DA6 */
+  --purple-30: hsl(266  85% 44%);  /* #6410CF ← brand core */
+  --purple-20: hsl(266  81% 50%);  /* #7318E7 */
+  --purple-10: hsl(266  81% 86%);  /* #D8BFF8 */
+
+  /* ── Pink ─────────────────────────────────────── H ≈ 306° */
+  --pink-70: hsl(306  81% 20%);  /* #5C0A54 */
+  --pink-60: hsl(305  81% 27%);  /* #7A0D70 */
+  --pink-50: hsl(306  80% 33%);  /* #99118C */
+  --pink-40: hsl(305  80% 36%);  /* #A31296 */
+  --pink-30: hsl(306  81% 44%);  /* #CC16BB ← brand core */
+  --pink-20: hsl(306  76% 51%);  /* #E124CF */
+  --pink-10: hsl(305 100% 89%);  /* #FFC6FA */
+
+  /* ── Yellow ───────────────────────────────────── H ≈  36° */
+  --yellow-70: hsl(36  80% 32%);  /* #956010 */
+  --yellow-60: hsl(36  81% 41%);  /* #BB7814 */
+  --yellow-50: hsl(36  81% 43%);  /* #C78015 */
+  --yellow-40: hsl(36  81% 48%);  /* #E09017 */
+  --yellow-30: hsl(36  95% 54%);  /* #F9A01A ← brand core */
+  --yellow-20: hsl(36 100% 62%);  /* #FFB23E */
+  --yellow-10: hsl(36 100% 90%);  /* #FFEACA */
+
+  /* ── Neutral (Gray) ───────────────────────────── H ≈ 220° */
+  --neutral-70: hsl(220  11%  5%);  /* #0C0D0F ← brand dark  */
+  --neutral-60: hsl(225   8% 10%);  /* #18191C */
+  --neutral-50: hsl(217   9% 17%);  /* #26292E */
+  --neutral-40: hsl(216   8% 35%);  /* #525861 */
+  --neutral-30: hsl(221   7% 61%);  /* #9498A1 */
+  --neutral-20: hsl(221  13% 81%);  /* #C7CBD4 */
+  --neutral-10: hsl(222 100% 98%);  /* #F5F8FF */
+
+  /* ── Overlays ────────────────────────────────────────────── */
+  --overlay-dark:  hsl(220 11% 5% / 0.85);   /* #0C0D0F @ 85% */
+  --overlay-light: hsl(222 100% 98% / 0.20); /* #F5F8FF @ 20% */
+
+  /* ════════════════════════════════════════════════════════════
+     LAYER 2 · Semantic / Brand Tokens
+     Built on Layer 1 primitives. Edit here to change the 'vibe'.
+     ════════════════════════════════════════════════════════════ */
+
+  /* ── VIDI Brand Tokens ───────────────────────────────────── */
+  --vidi-primary:          var(--primary-30);  /* #FD1B44 */
+  --vidi-primary-hover:    var(--primary-40);  /* #E3052D */
+  --vidi-primary-active:   var(--primary-50);  /* #CA0528 */
+  --vidi-primary-foreground: #ffffff;
+
+  --vidi-extended:         var(--blue-30);     /* #0074FF */
+  --vidi-extended-hover:   var(--blue-40);     /* #0067E2 */
+  --vidi-extended-active:  var(--blue-50);     /* #005DCC */
+  --vidi-extended-foreground: #ffffff;
+
+  --vidi-neutral:          var(--neutral-70);  /* #0C0D0F */
+  --vidi-neutral-hover:    var(--neutral-60);  /* #18191C */
+  --vidi-neutral-active:   var(--neutral-50);  /* #26292E */
+  --vidi-neutral-foreground: var(--neutral-10);  /* #F5F8FF */
+
+  /* ── shadcn semantic tokens (zinc base + VIDI overrides) ─── */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.141 0.005 285.823);
+
+  /* primary + secondary → VIDI brand colors */
+  --primary: var(--vidi-primary);
+  --primary-foreground: var(--vidi-primary-foreground);
+  --secondary: var(--vidi-extended);
+  --secondary-foreground: var(--vidi-extended-foreground);
+
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.21 0.006 285.885);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: var(--vidi-primary);
+
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-primary: var(--vidi-primary);
+  --sidebar-primary-foreground: var(--vidi-primary-foreground);
+  --sidebar-accent: oklch(0.967 0.001 286.375);
+  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+  --sidebar-border: oklch(0.92 0.004 286.32);
+  --sidebar-ring: var(--vidi-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   .dark — Dark Theme
+   Primitive palette is immutable. Only semantic tokens shift.
+   ═══════════════════════════════════════════════════════════════ */
+.dark {
+  /* ── VIDI Brand (dark theme overrides) ──────────────────────
+     Primary: #CA0528 (primary-50)  ·  sole brand colour
+     ─────────────────────────────────────────────────────────── */
+  --vidi-primary:          var(--primary-50);  /* #CA0528 — dark-mode red */
+  --vidi-primary-hover:    var(--primary-40);  /* #E3052D — brighter on hover */
+  --vidi-primary-active:   var(--primary-60);  /* #B00423 — pressed */
+  --vidi-primary-foreground: #ffffff;
+
+  --vidi-extended:         var(--blue-20);     /* #348BF4 — lighter in dark */
+  --vidi-extended-hover:   var(--blue-10);     /* #CAE2FF */
+  --vidi-extended-active:  var(--blue-30);     /* #0074FF */
+  --vidi-extended-foreground: #ffffff;
+
+  --vidi-neutral:          var(--neutral-10);  /* #F5F8FF — inverted */
+  --vidi-neutral-hover:    var(--neutral-20);  /* #C7CBD4 */
+  --vidi-neutral-active:   var(--neutral-30);  /* #9498A1 */
+  --vidi-neutral-foreground: var(--neutral-70);  /* #0C0D0F */
+
+  --background: oklch(0.141 0.005 285.823);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.21 0.006 285.885);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.21 0.006 285.885);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: var(--vidi-primary);
+  --primary-foreground: var(--vidi-primary-foreground);
+  --secondary: var(--vidi-extended);
+  --secondary-foreground: var(--vidi-extended-foreground);
+  --muted: oklch(0.274 0.006 286.033);
+  --muted-foreground: oklch(0.705 0.015 286.067);
+  --accent: oklch(0.274 0.006 286.033);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--vidi-primary);
+
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+
+  /* ── Sidebar — primary red (#CA0528) for hover/active states ─ */
+  --sidebar: oklch(0.18 0.006 285.885);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: var(--primary-50);            /* #CA0528 — active indicator */
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: oklch(0.22 0.018 17);          /* dark red-zinc hover/active bg */
+  --sidebar-accent-foreground: oklch(0.92 0.012 17); /* light rose text */
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: var(--primary-50);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
