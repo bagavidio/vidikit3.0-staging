@@ -46,7 +46,7 @@ export default function ButtonPage() {
           <Button intent="neutral">Neutral</Button>
           <Button intent="ghost">Ghost</Button>
           <Button intent="outline">Outline</Button>
-          <Button intent="pink">Pink</Button>
+          <Button intent="secondary">Secondary</Button>
           <Button intent="destructive">Destructive</Button>
           <Button intent="link">Link</Button>
         </Section>
@@ -67,12 +67,12 @@ export default function ButtonPage() {
           <Button intent="extended" size="lg">Watch Now</Button>
         </Section>
 
-        {/* Pink × All Sizes */}
-        <Section title="Pink · All Sizes">
-          <Button intent="pink" size="xs">Explore xs</Button>
-          <Button intent="pink" size="sm">Explore sm</Button>
-          <Button intent="pink" size="default">Explore</Button>
-          <Button intent="pink" size="lg">Explore lg</Button>
+        {/* Extended × All Sizes */}
+        <Section title="Extended · All Sizes">
+          <Button intent="extended" size="xs">Explore xs</Button>
+          <Button intent="extended" size="sm">Explore sm</Button>
+          <Button intent="extended" size="default">Explore</Button>
+          <Button intent="extended" size="lg">Explore lg</Button>
         </Section>
 
         {/* Icon-only */}
@@ -82,7 +82,7 @@ export default function ButtonPage() {
           <Button size="icon"    intent="ghost" aria-label="Menu">☰</Button>
           <Button size="icon-lg" intent="ghost" aria-label="Menu lg">☰</Button>
           <Button size="icon"    intent="primary"     aria-label="Add">+</Button>
-          <Button size="icon"    intent="pink"        aria-label="Star">★</Button>
+          <Button size="icon"    intent="extended"        aria-label="Star">★</Button>
           <Button size="icon"    intent="outline"     aria-label="Info">i</Button>
           <Button size="icon"    intent="destructive" aria-label="Delete">✕</Button>
         </Section>
@@ -98,7 +98,7 @@ export default function ButtonPage() {
           >
             Both Icons
           </Button>
-          <Button intent="pink"    leftIcon={<span>★</span>}>Favourite</Button>
+          <Button intent="extended"    leftIcon={<span>★</span>}>Favourite</Button>
           <Button intent="outline" leftIcon={<span>⊕</span>}>Add Item</Button>
         </Section>
 
@@ -108,7 +108,7 @@ export default function ButtonPage() {
           <Button intent="extended" loading>Loading</Button>
           <Button intent="neutral"  loading size="lg">Processing</Button>
           <Button intent="outline"  loading size="sm">Fetching</Button>
-          <Button intent="pink"     loading>Uploading</Button>
+          <Button intent="extended"     loading>Uploading</Button>
         </Section>
 
         {/* Disabled */}
@@ -117,7 +117,6 @@ export default function ButtonPage() {
           <Button intent="extended" disabled>Extended</Button>
           <Button intent="outline"  disabled>Outline</Button>
           <Button intent="ghost"    disabled>Ghost</Button>
-          <Button intent="pink"     disabled>Pink</Button>
         </Section>
 
         {/* Destructive */}
