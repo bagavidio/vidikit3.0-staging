@@ -21,6 +21,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+const SPEC = [
+  { prop: "open",          type: "boolean",          default: "—",     description: "Controlled open state" },
+  { prop: "onOpenChange",  type: "(open) => void",   default: "—",     description: "Called when open state changes" },
+  { prop: "modal",         type: "boolean",          default: "true",  description: "Whether to render as modal" },
+  { prop: "side",          type: '"top" | "right" | "bottom" | "left"', default: '"bottom"', description: "Preferred side (Content)" },
+  { prop: "align",         type: '"start" | "center" | "end"',          default: '"start"',  description: "Content alignment (Content)" },
+  { prop: "sideOffset",    type: "number",           default: "4",     description: "Pixel offset from trigger (Content)" },
+];
+
 function Section({
   title,
   description,
@@ -47,18 +56,21 @@ function Section({
 
 export default function DropdownMenuPage() {
   return (
-    <main className="min-h-screen bg-background p-10">
-      <header className="mb-12 space-y-1">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          vidikit · components
-        </p>
-        <h1 className="text-4xl font-bold tracking-tight text-foreground">Dropdown Menu</h1>
-        <p className="text-muted-foreground">
-          Contextual menu with items, groups, labels, shortcuts, checkboxes, radio items, and submenus.
-        </p>
-      </header>
+    <main className="min-h-screen bg-background px-6 py-12">
+      <div className="mx-auto max-w-4xl space-y-12">
 
-      <div className="max-w-4xl space-y-12">
+        <header className="space-y-1">
+          <p className="font-mono text-xs font-semibold uppercase tracking-widest text-muted-foreground">vidikit · components</p>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground">Dropdown Menu</h1>
+          <p className="text-muted-foreground">
+            Contextual menu with items, groups, labels, shortcuts, checkboxes, radio items, and submenus.
+          </p>
+          <div className="flex flex-wrap gap-2 pt-1">
+            {["@/components/ui/dropdown-menu", "radix-ui", "Checkbox + Radio items"].map((t) => (
+              <span key={t} className="rounded-full border border-border bg-muted/50 px-2.5 py-1 font-mono text-[10px] text-muted-foreground">{t}</span>
+            ))}
+          </div>
+        </header>
 
         {/* ── Basic ── */}
         <Section
@@ -240,6 +252,69 @@ export default function DropdownMenuPage() {
             </DropdownMenuContent>
           </DropdownMenu>
         </Section>
+
+        {/* ── Props Specification ── */}
+        <section className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Props Specification</h2>
+          <div className="overflow-hidden rounded-xl border border-border">
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-border bg-muted/30">
+                {["Prop","Type","Default","Description"].map((h) => (<th key={h} className="px-4 py-2.5 text-left text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{h}</th>))}
+              </tr></thead>
+              <tbody className="divide-y divide-border/50">
+                {SPEC.map((r, i) => (<tr key={r.prop} className={i % 2 === 0 ? "bg-card/40" : ""}>
+                  <td className="px-4 py-3"><code className="font-mono text-xs font-semibold text-foreground">{r.prop}</code></td>
+                  <td className="px-4 py-3"><code className="font-mono text-xs text-muted-foreground">{r.type}</code></td>
+                  <td className="px-4 py-3"><code className="font-mono text-xs text-muted-foreground">{r.default}</code></td>
+                  <td className="px-4 py-3 text-xs text-muted-foreground">{r.description}</td>
+                </tr>))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* ── Cross-Platform Specs ── */}
+        <section className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Cross-Platform Specs</h2>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Web (React)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button>Open</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem>
+      Edit
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>`}</pre>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">iOS (SwiftUI)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`Menu {
+  Button("Edit") { /* action */ }
+} label: {
+  Image(systemName:
+    "ellipsis.circle")
+}`}</pre>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Android (Compose)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`DropdownMenu(
+  expanded = open,
+  onDismissRequest = {
+    open = false
+  }
+) {
+  DropdownMenuItem(
+    text = { Text("Edit") },
+    onClick = {}
+  )
+}`}</pre>
+            </div>
+          </div>
+        </section>
 
         {/* ── Guideline ── */}
         <section className="rounded-xl border border-border bg-muted/20 p-6 space-y-3">

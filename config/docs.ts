@@ -83,6 +83,7 @@ export const docsNav: NavGroup[] = [
       { title: "Skeleton",       href: "/components/skeleton",      label: "New" },
       { title: "Slider",         href: "/components/slider",        label: "New" },
       { title: "Switch",         href: "/components/switch",        label: "New" },
+      { title: "Tabbar",         href: "/components/tabbar",        label: "New" },
       { title: "Tabs",           href: "/components/tabs",          label: "New" },
       { title: "Textarea",       href: "/components/textarea",      label: "New" },
       { title: "Toast",          href: "/components/toast",         label: "New" },
@@ -97,7 +98,7 @@ export const docsNav: NavGroup[] = [
     items: [
       { title: "Design Tokens",   href: "/foundations/semantics" },
       { title: "Breakpoints",     href: "/tokens/breakpoints" },
-      { title: "Aspect Ratios",   href: "/tokens/ratio" },
+      { title: "Aspect Ratios",   href: "/components/aspect-ratio" },
       { title: "Token Export API", href: "/api/tokens", label: "JSON" },
     ],
   },

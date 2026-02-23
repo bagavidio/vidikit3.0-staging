@@ -12,6 +12,14 @@ import {
   AvatarGroupCount,
 } from "@/components/ui/avatar";
 
+// ── Spec ────────────────────────────────────────────────────────────────────────
+
+const SPEC = [
+  { prop: "size",      type: '"default" | "sm" | "lg"', default: '"default"', description: "Avatar dimensions — sm (24px), default (32px), lg (40px)" },
+  { prop: "className", type: "string",                  default: "—",         description: "Merge additional Tailwind classes" },
+  { prop: "children",  type: "ReactNode",               default: "—",         description: "AvatarImage, AvatarFallback, AvatarBadge" },
+];
+
 // ── Shared helpers ─────────────────────────────────────────────────────────────
 
 function Section({
@@ -61,8 +69,10 @@ function Demo({ label, children }: { label: string; children: React.ReactNode })
 
 export default function AvatarPage() {
   return (
-    <main className="min-h-screen bg-background p-10">
-      <header className="mb-12 space-y-1">
+    <main className="min-h-screen bg-background px-6 py-12">
+      <div className="mx-auto max-w-4xl space-y-12">
+
+      <header className="space-y-1">
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           vidikit · components
         </p>
@@ -70,9 +80,12 @@ export default function AvatarPage() {
         <p className="text-muted-foreground">
           Profile pictures with image, initials fallback, status badges, and stacked groups.
         </p>
+        <div className="flex flex-wrap gap-2 pt-1">
+          {["@/components/ui/avatar", "radix-ui", "Size variants + badge"].map((t) => (
+            <span key={t} className="rounded-full border border-border bg-muted/50 px-2.5 py-1 font-mono text-[10px] text-muted-foreground">{t}</span>
+          ))}
+        </div>
       </header>
-
-      <div className="max-w-4xl space-y-12">
 
         {/* ── Sizes ── */}
         <Section title="Sizes" description="Three sizes: sm (24px), default (32px), lg (40px).">
@@ -219,6 +232,63 @@ export default function AvatarPage() {
             </AvatarGroupCount>
           </AvatarGroup>
         </Section>
+
+        {/* ── Props Specification ── */}
+        <section className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Props Specification</h2>
+          <div className="overflow-hidden rounded-xl border border-border">
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-border bg-muted/30">
+                {["Prop","Type","Default","Description"].map((h) => (<th key={h} className="px-4 py-2.5 text-left text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{h}</th>))}
+              </tr></thead>
+              <tbody className="divide-y divide-border/50">
+                {SPEC.map((r, i) => (<tr key={r.prop} className={i % 2 === 0 ? "bg-card/40" : ""}>
+                  <td className="px-4 py-3"><code className="font-mono text-xs font-semibold text-foreground">{r.prop}</code></td>
+                  <td className="px-4 py-3"><code className="font-mono text-xs text-muted-foreground">{r.type}</code></td>
+                  <td className="px-4 py-3"><code className="font-mono text-xs text-muted-foreground">{r.default}</code></td>
+                  <td className="px-4 py-3 text-xs text-muted-foreground">{r.description}</td>
+                </tr>))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* ── Cross-Platform Specs ── */}
+        <section className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Cross-Platform Specs</h2>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Web (React)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`<Avatar size="lg">
+  <AvatarImage src={url} />
+  <AvatarFallback>AB</AvatarFallback>
+  <AvatarBadge className="bg-green-30" />
+</Avatar>`}</pre>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">iOS (SwiftUI)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`AsyncImage(url: avatarURL)
+  .frame(width: 40, height: 40)
+  .clipShape(Circle())
+  .overlay(alignment: .bottomTrailing) {
+    Circle().fill(.green)
+      .frame(width: 10)
+  }`}</pre>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Android (Compose)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`Box {
+  AsyncImage(
+    model = url,
+    modifier = Modifier
+      .size(40.dp)
+      .clip(CircleShape)
+  )
+  Badge { /* status */ }
+}`}</pre>
+            </div>
+          </div>
+        </section>
 
         {/* ── Guideline ── */}
         <section className="rounded-xl border border-border bg-muted/20 p-6 space-y-3">

@@ -7,6 +7,20 @@
 
 import { Button } from "@/components/design-system";
 
+// ── Spec ────────────────────────────────────────────────────────────────────────
+
+const SPEC = [
+  { prop: "intent",    type: '"primary" | "extended" | "neutral" | "secondary" | "ghost" | "outline" | "destructive" | "link"', default: '"primary"', description: "Semantic purpose / color scheme" },
+  { prop: "size",      type: '"default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"', default: '"default"', description: "Button dimensions" },
+  { prop: "asChild",   type: "boolean",        default: "false", description: "Merge props onto child element via Slot" },
+  { prop: "loading",   type: "boolean",        default: "false", description: "Show spinner, disable interaction" },
+  { prop: "leftIcon",  type: "React.ReactNode", default: "—",    description: "Icon before label (triggers adaptive padding)" },
+  { prop: "rightIcon", type: "React.ReactNode", default: "—",    description: "Icon after label (triggers adaptive padding)" },
+  { prop: "disabled",  type: "boolean",        default: "false", description: "Disabled state" },
+];
+
+// ── Shared helpers ─────────────────────────────────────────────────────────────
+
 const Section = ({
   title,
   children,
@@ -22,11 +36,15 @@ const Section = ({
   </section>
 );
 
+// ── Page ───────────────────────────────────────────────────────────────────────
+
 export default function ButtonPage() {
   return (
-    <main className="min-h-screen bg-background p-10">
+    <main className="min-h-screen bg-background px-6 py-12">
+      <div className="mx-auto max-w-4xl space-y-12">
+
       {/* Header */}
-      <header className="mb-12 space-y-1">
+      <header className="space-y-1">
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           vidikit · components
         </p>
@@ -36,9 +54,13 @@ export default function ButtonPage() {
         <p className="text-muted-foreground">
           Master Button — all intents, sizes, and states.
         </p>
+        <div className="flex flex-wrap gap-2 pt-1">
+          {["@/components/design-system/button", "CVA + intent prop", "Maia DNA (rounded-4xl)"].map((t) => (
+            <span key={t} className="rounded-full border border-border bg-muted/50 px-2.5 py-1 font-mono text-[10px] text-muted-foreground">{t}</span>
+          ))}
+        </div>
       </header>
 
-      <div className="max-w-4xl space-y-10">
         {/* Intent */}
         <Section title="Intent">
           <Button intent="primary">Primary</Button>
@@ -127,6 +149,61 @@ export default function ButtonPage() {
           <Button intent="destructive" size="lg">Delete lg</Button>
           <Button intent="destructive" size="icon" aria-label="Delete">✕</Button>
         </Section>
+
+        {/* ── Props Specification ── */}
+        <section className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Props Specification</h2>
+          <div className="overflow-hidden rounded-xl border border-border">
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-border bg-muted/30">
+                {["Prop","Type","Default","Description"].map((h) => (<th key={h} className="px-4 py-2.5 text-left text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{h}</th>))}
+              </tr></thead>
+              <tbody className="divide-y divide-border/50">
+                {SPEC.map((r, i) => (<tr key={r.prop} className={i % 2 === 0 ? "bg-card/40" : ""}>
+                  <td className="px-4 py-3"><code className="font-mono text-xs font-semibold text-foreground">{r.prop}</code></td>
+                  <td className="px-4 py-3"><code className="font-mono text-xs text-muted-foreground">{r.type}</code></td>
+                  <td className="px-4 py-3"><code className="font-mono text-xs text-muted-foreground">{r.default}</code></td>
+                  <td className="px-4 py-3 text-xs text-muted-foreground">{r.description}</td>
+                </tr>))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* ── Cross-Platform Specs ── */}
+        <section className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Cross-Platform Specs</h2>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Web (React)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`<Button
+  intent="primary"
+  leftIcon={<Icon />}
+>
+  Label
+</Button>`}</pre>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">iOS (SwiftUI)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`Button("Label") {
+  action()
+}
+.buttonStyle(
+  VidiButtonStyle(.primary)
+)`}</pre>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Android (Compose)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`VidiButton(
+  intent = Primary,
+  onClick = {}
+) {
+  Text("Label")
+}`}</pre>
+            </div>
+          </div>
+        </section>
+
       </div>
     </main>
   );

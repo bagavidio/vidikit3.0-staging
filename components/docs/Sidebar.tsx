@@ -19,6 +19,7 @@ import {
 import {
   Sidebar,
   SidebarContent,
+  SidebarHeader,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -34,6 +35,11 @@ export function DocsSidebar() {
 
   return (
     <Sidebar variant="floating" collapsible="offcanvas">
+      <SidebarHeader className="px-4 pt-4 pb-2">
+        <span className="text-sm font-semibold tracking-tight text-foreground">
+          VIDIKit 3.0
+        </span>
+      </SidebarHeader>
       <SidebarContent>
         {docsNav.map((group) => {
           const hasActiveChild = group.items.some(

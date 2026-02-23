@@ -143,7 +143,7 @@ function HeroSection() {
       ref={heroRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative overflow-hidden rounded-2xl border border-border/40 bg-card/30 px-8 py-14 sm:px-14 sm:py-20"
+      className="relative overflow-hidden px-8 py-14 sm:px-14 sm:py-20"
     >
       {/* Cursor-following ambient glow */}
       <motion.div
@@ -184,7 +184,6 @@ function HeroSection() {
           animate="show"
           custom={0.08}
         >
-          The{" "}
           <span
             style={{
               background: "linear-gradient(135deg, var(--red-40) 0%, var(--red-50) 60%)",
@@ -235,10 +234,12 @@ function HeroSection() {
 
 export default function HomePage() {
   return (
-    <div className="mx-auto max-w-4xl space-y-14 px-6 py-10">
+    <div className="space-y-14 py-10">
 
-      {/* ── Section 1: Interactive Hero ───────────────────────────── */}
+      {/* ── Section 1: Interactive Hero (full-width) ──────────────── */}
       <HeroSection />
+
+      <div className="mx-auto max-w-4xl space-y-14 px-6">
 
       {/* ── Section 2: Quick Shortcuts ───────────────────────────── */}
       <section className="space-y-5">
@@ -332,6 +333,7 @@ export default function HomePage() {
         </motion.div>
       </section>
 
+      </div>
     </div>
   );
 }

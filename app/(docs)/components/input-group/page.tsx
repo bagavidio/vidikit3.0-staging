@@ -13,6 +13,13 @@ import {
 } from "@/components/ui/input-group";
 import { Label } from "@/components/ui/label";
 
+const SPEC = [
+  { prop: "className", type: "string",    default: "\u2014", description: "Merge additional Tailwind classes on root" },
+  { prop: "children",  type: "ReactNode", default: "\u2014", description: "InputGroupAddon, InputGroupInput, InputGroupButton, InputGroupText" },
+];
+
+const TAGS = ["@/components/ui/input-group", "Composition pattern", "Addon variants"];
+
 function Section({
   title,
   description,
@@ -75,18 +82,25 @@ function SendSvg() {
 
 export default function InputGroupPage() {
   return (
-    <main className="min-h-screen bg-background p-10">
-      <header className="mb-12 space-y-1">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          vidikit · components
-        </p>
-        <h1 className="text-4xl font-bold tracking-tight text-foreground">Input Group</h1>
-        <p className="text-muted-foreground">
-          Composed input field with inline and block addons — icons, text, buttons, and labels.
-        </p>
-      </header>
+    <main className="min-h-screen bg-background px-6 py-12">
+      <div className="mx-auto max-w-4xl space-y-12">
 
-      <div className="max-w-4xl space-y-12">
+        <header className="mb-12 space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            vidikit · components
+          </p>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground">Input Group</h1>
+          <p className="text-muted-foreground">
+            Composed input field with inline and block addons — icons, text, buttons, and labels.
+          </p>
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {TAGS.map((t) => (
+              <span key={t} className="inline-flex items-center rounded-full border border-border bg-muted/40 px-2.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+                {t}
+              </span>
+            ))}
+          </div>
+        </header>
 
         {/* ── Inline Start ── */}
         <Section
@@ -235,6 +249,66 @@ export default function InputGroupPage() {
             <p className="text-xs text-destructive">Please enter a valid email address.</p>
           </div>
         </Section>
+
+        {/* ── Props Specification ── */}
+        <section className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Props Specification</h2>
+          <div className="overflow-hidden rounded-xl border border-border">
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-border bg-muted/30">
+                {["Prop","Type","Default","Description"].map((h) => (<th key={h} className="px-4 py-2.5 text-left text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{h}</th>))}
+              </tr></thead>
+              <tbody className="divide-y divide-border/50">
+                {SPEC.map((r, i) => (<tr key={r.prop} className={i % 2 === 0 ? "bg-card/40" : ""}>
+                  <td className="px-4 py-3"><code className="font-mono text-xs font-semibold text-foreground">{r.prop}</code></td>
+                  <td className="px-4 py-3"><code className="font-mono text-xs text-muted-foreground">{r.type}</code></td>
+                  <td className="px-4 py-3"><code className="font-mono text-xs text-muted-foreground">{r.default}</code></td>
+                  <td className="px-4 py-3 text-xs text-muted-foreground">{r.description}</td>
+                </tr>))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* ── Cross-Platform Specs ── */}
+        <section className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Cross-Platform Specs</h2>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Web (React)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`<InputGroup>
+  <InputGroupAddon align="inline-start">
+    @
+  </InputGroupAddon>
+  <InputGroupInput
+    placeholder="username"
+  />
+</InputGroup>`}</pre>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">iOS (SwiftUI)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`HStack {
+  Text("@")
+    .foregroundColor(.secondary)
+  TextField("username", text: $val)
+}
+.padding()
+.overlay(
+  RoundedRectangle(cornerRadius: 999)
+    .stroke(Color.border)
+)`}</pre>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Android (Compose)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`OutlinedTextField(
+  value = val,
+  onValueChange = { val = it },
+  leadingIcon = { Text("@") },
+  shape = RoundedCornerShape(999.dp)
+)`}</pre>
+            </div>
+          </div>
+        </section>
 
         {/* ── Guideline ── */}
         <section className="rounded-xl border border-border bg-muted/20 p-6 space-y-3">

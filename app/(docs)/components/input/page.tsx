@@ -6,6 +6,13 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+const SPEC = [
+  { prop: "type",        type: "string",  default: '"text"', description: "HTML input type" },
+  { prop: "placeholder", type: "string",  default: "—",      description: "Placeholder text" },
+  { prop: "disabled",    type: "boolean", default: "false",  description: "Disabled state" },
+  { prop: "className",   type: "string",  default: "—",      description: "Merge additional Tailwind classes" },
+];
+
 function Section({
   title,
   description,
@@ -42,18 +49,21 @@ function Section({
 
 export default function InputPage() {
   return (
-    <main className="min-h-screen bg-background p-10">
-      <header className="mb-12 space-y-1">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          vidikit · components
-        </p>
-        <h1 className="text-4xl font-bold tracking-tight text-foreground">Input</h1>
-        <p className="text-muted-foreground">
-          Single-line text field with pill shape, focus ring, and full state support.
-        </p>
-      </header>
+    <main className="min-h-screen bg-background px-6 py-12">
+      <div className="mx-auto max-w-4xl space-y-12">
 
-      <div className="max-w-4xl space-y-12">
+        <header className="space-y-1">
+          <p className="font-mono text-xs font-semibold uppercase tracking-widest text-muted-foreground">vidikit · components</p>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground">Input</h1>
+          <p className="text-muted-foreground">
+            Single-line text field with pill shape, focus ring, and full state support.
+          </p>
+          <div className="flex flex-wrap gap-2 pt-1">
+            {["@/components/ui/input", "Native HTML", "Maia pill (rounded-4xl)"].map((t) => (
+              <span key={t} className="rounded-full border border-border bg-muted/50 px-2.5 py-1 font-mono text-[10px] text-muted-foreground">{t}</span>
+            ))}
+          </div>
+        </header>
 
         {/* ── Default ── */}
         <Section title="Default">
@@ -144,6 +154,61 @@ export default function InputPage() {
             <Input id="ex-bio" placeholder="Tell us about yourself…" />
           </div>
         </Section>
+
+        {/* ── Props Specification ── */}
+        <section className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Props Specification</h2>
+          <div className="overflow-hidden rounded-xl border border-border">
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-border bg-muted/30">
+                {["Prop","Type","Default","Description"].map((h) => (<th key={h} className="px-4 py-2.5 text-left text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{h}</th>))}
+              </tr></thead>
+              <tbody className="divide-y divide-border/50">
+                {SPEC.map((r, i) => (<tr key={r.prop} className={i % 2 === 0 ? "bg-card/40" : ""}>
+                  <td className="px-4 py-3"><code className="font-mono text-xs font-semibold text-foreground">{r.prop}</code></td>
+                  <td className="px-4 py-3"><code className="font-mono text-xs text-muted-foreground">{r.type}</code></td>
+                  <td className="px-4 py-3"><code className="font-mono text-xs text-muted-foreground">{r.default}</code></td>
+                  <td className="px-4 py-3 text-xs text-muted-foreground">{r.description}</td>
+                </tr>))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* ── Cross-Platform Specs ── */}
+        <section className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Cross-Platform Specs</h2>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Web (React)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`<Input
+  type="email"
+  placeholder="Email address"
+/>`}</pre>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">iOS (SwiftUI)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`TextField("Email address",
+  text: $email)
+  .textFieldStyle(
+    .roundedBorder
+  )`}</pre>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Android (Compose)</p>
+              <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`OutlinedTextField(
+  value = email,
+  onValueChange = {
+    email = it
+  },
+  label = { Text("Email") },
+  shape = RoundedCornerShape(
+    999.dp
+  )
+)`}</pre>
+            </div>
+          </div>
+        </section>
 
         {/* ── Guideline ── */}
         <section className="rounded-xl border border-border bg-muted/20 p-6 space-y-3">
