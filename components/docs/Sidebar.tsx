@@ -15,7 +15,6 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuBadge,
   SidebarMenuButton,
@@ -28,19 +27,6 @@ export function DocsSidebar() {
 
   return (
     <Sidebar collapsible="offcanvas">
-      {/* Sidebar header */}
-      <SidebarHeader className="border-b border-sidebar-border px-3 py-2.5">
-        <div className="flex items-center gap-2">
-          <VidiMark className="size-5 shrink-0" />
-          <span className="text-sm font-semibold text-sidebar-foreground tracking-tight">
-            VIDI Design System
-          </span>
-          <span className="ml-auto font-mono text-[10px] text-muted-foreground">
-            v0.1
-          </span>
-        </div>
-      </SidebarHeader>
-
       {/* Nav groups */}
       <SidebarContent>
         {docsNav.map((group) => (
@@ -84,25 +70,3 @@ export function DocsSidebar() {
   );
 }
 
-// ── VIDI mark ─────────────────────────────────────────────────────────────────
-
-function VidiMark({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <rect width="24" height="24" rx="6" fill="var(--primary-50)" />
-      <polyline
-        points="6,7 12,17 18,7"
-        stroke="white"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-      />
-    </svg>
-  );
-}

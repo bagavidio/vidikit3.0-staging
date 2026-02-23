@@ -11,22 +11,22 @@
  *   · Unit tests asserting correct brand colors
  *   · Any non-CSS consumer that needs programmatic color access
  *
- * Naming convention:
+ * Naming convention: [color]-[number]
  *   70 = darkest shade    10 = lightest shade
  *   30 = core brand color (the primary expression of each family)
  *
  * Tailwind utility classes (via globals.css @theme):
- *   bg-primary-30  text-blue-70  border-tosca-50  fill-green-10
- *   bg-neutral-70  bg-overlay-dark   bg-overlay-light
+ *   bg-red-30    text-blue-70    border-tosca-50    fill-green-10
+ *   bg-gray-70   bg-overlay-dark bg-overlay-light
  */
 
-// ── Primary (Red) ──────────────────────────────────────────────
-export const primary = {
+// ── Red (Primary) ───────────────────────────────────────────────
+export const red = {
   70: "#7D0017",
   60: "#B00423",
   50: "#CA0528",
   40: "#E3052D",
-  /** #FD1B44 — VIDI brand core red · bg-primary-30 */
+  /** #FD1B44 — VIDI brand core red · bg-red-30 */
   30: "#FD1B44",
   20: "#FE5070",
   10: "#F8C8D1",
@@ -104,38 +104,44 @@ export const yellow = {
   10: "#FFEACA",
 } as const;
 
-// ── Neutral (Gray) ─────────────────────────────────────────────
-export const neutral = {
-  /** #0C0D0F — VIDI near-black · bg-neutral-70 */
+// ── Gray (Neutral) ─────────────────────────────────────────────
+export const gray = {
+  /** #0C0D0F — VIDI near-black · bg-gray-70 */
   70: "#0C0D0F",
   60: "#18191C",
   50: "#26292E",
   40: "#525861",
   30: "#9498A1",
   20: "#C7CBD4",
-  /** #F5F8FF — VIDI off-white · bg-neutral-10 */
+  /** #F5F8FF — VIDI off-white · bg-gray-10 */
   10: "#F5F8FF",
+} as const;
+
+// ── Special: Black & White ─────────────────────────────────────
+export const special = {
+  black:  "#000000",
+  white:  "#FFFFFF",
 } as const;
 
 // ── Overlays ───────────────────────────────────────────────────
 export const overlays = {
-  /** neutral-70 at 85% opacity — use for dark scrim/modal backdrop */
-  dark: "rgba(12, 13, 15, 0.85)",
-  /** neutral-10 at 20% opacity — use for light glass effects */
+  /** gray-70 at 85% opacity — use for dark scrim/modal backdrop */
+  dark:  "rgba(12, 13, 15, 0.85)",
+  /** gray-10 at 20% opacity — use for light glass effects */
   light: "rgba(245, 248, 255, 0.20)",
 } as const;
 
 // ── Full palette ───────────────────────────────────────────────
 /** Complete VIDI primitive color palette (all families). */
 export const palette = {
-  primary,
+  red,
   blue,
   tosca,
   green,
   purple,
   pink,
   yellow,
-  neutral,
+  gray,
   overlays,
 } as const;
 

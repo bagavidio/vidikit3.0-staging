@@ -10,8 +10,8 @@
    ═══════════════════════════════════════════════════════════════
    TOKEN ARCHITECTURE (two layers):
    ┌─ Layer 1 · Primitive Palette ──────────────────────────────┐
-   │  Raw hex → HSL → CSS var    e.g. --primary-30: hsl(…)     │
-   │  Tailwind utility           e.g. bg-primary-30             │
+   │  Raw hex → HSL → CSS var    e.g. --red-30: hsl(…)         │
+   │  Tailwind utility           e.g. bg-red-30                 │
    │  Stable. Never changes per theme.                          │
    └────────────────────────────────────────────────────────────┘
    ┌─ Layer 2 · Semantic / Brand tokens ────────────────────────┐
@@ -30,6 +30,31 @@
   /* ── Typography ───────────────────────────────────────────── */
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
+
+  /* ── Breakpoints ───────────────────────────────────────────
+     Custom scale: mobile-first, 5 steps.
+     Overrides Tailwind v4 defaults to match VIDI grid spec.
+     ─────────────────────────────────────────────────────────── */
+  --breakpoint-sm:  360px;   /* Mobile portrait  */
+  --breakpoint-md:  768px;   /* Tablet           */
+  --breakpoint-lg:  1024px;  /* Laptop / desktop */
+  --breakpoint-xl:  1280px;  /* Desktop          */
+  --breakpoint-2xl: 1920px;  /* Big screen / TV  */
+
+  /* ── Aspect Ratios ─────────────────────────────────────────
+     Standard + VIDI content-type brand specs.
+     Usage: aspect-landscape · aspect-headline-mobile · etc.
+     ─────────────────────────────────────────────────────────── */
+  --aspect-landscape:        16 / 9;
+  --aspect-portrait:          9 / 16;
+  --aspect-thumb-portrait:    2 / 3;
+  --aspect-square:            1 / 1;
+  /* VIDI Brand Content Formats */
+  --aspect-headline-mobile:   333 / 187;
+  --aspect-headline-desktop:  1000 / 322;
+  --aspect-subheadline:       236 / 101;
+  --aspect-breaking-mobile:   328 / 94;
+  --aspect-breaking-desktop:  1200 / 328;
 
   /* ── shadcn semantic color tokens ────────────────────────── */
   --color-background: var(--background);
@@ -89,22 +114,48 @@
   --color-vidi-neutral-active: var(--vidi-neutral-active);
   --color-vidi-neutral-foreground: var(--vidi-neutral-foreground);
 
+  /* ── VIDI UI Semantic Tokens (Layer 3) ────────────────────────
+     Cross-platform named roles. Fixed — do not change per theme.
+     Utilities: bg-brand-primary · text-text-primary · bg-state-error
+     ─────────────────────────────────────────────────────────── */
+
+  /* Brand Actions */
+  --color-brand-primary:        var(--brand-primary);
+  --color-brand-primary-hover:  var(--brand-primary-hover);
+  --color-brand-primary-active: var(--brand-primary-active);
+
+  /* Surface & Backgrounds */
+  --color-bg-base:    var(--bg-base);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-overlay: var(--bg-overlay);
+
+  /* Content & Text */
+  --color-text-primary:   var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-brand:     var(--text-brand);
+
+  /* States (Functional) */
+  --color-state-info:    var(--state-info);
+  --color-state-success: var(--state-success);
+  --color-state-warning: var(--state-warning);
+  --color-state-error:   var(--state-error);
+
   /* ── Primitive Color Palette ─────────────────────────────────
      Tailwind utilities generated:
-       bg-primary-30    text-blue-70    border-tosca-50
+       bg-red-30        text-blue-70    border-tosca-50
        bg-green-10      fill-purple-40  stroke-pink-20
-       bg-yellow-30     text-neutral-60
+       bg-yellow-30     text-gray-60
        bg-overlay-dark  bg-overlay-light
      ─────────────────────────────────────────────────────────── */
 
-  /* Primary (Red) */
-  --color-primary-70: var(--primary-70);
-  --color-primary-60: var(--primary-60);
-  --color-primary-50: var(--primary-50);
-  --color-primary-40: var(--primary-40);
-  --color-primary-30: var(--primary-30);
-  --color-primary-20: var(--primary-20);
-  --color-primary-10: var(--primary-10);
+  /* Red (Primary) */
+  --color-red-70: var(--red-70);
+  --color-red-60: var(--red-60);
+  --color-red-50: var(--red-50);
+  --color-red-40: var(--red-40);
+  --color-red-30: var(--red-30);
+  --color-red-20: var(--red-20);
+  --color-red-10: var(--red-10);
 
   /* Blue */
   --color-blue-70: var(--blue-70);
@@ -160,18 +211,28 @@
   --color-yellow-20: var(--yellow-20);
   --color-yellow-10: var(--yellow-10);
 
-  /* Neutral (Gray) */
-  --color-neutral-70: var(--neutral-70);
-  --color-neutral-60: var(--neutral-60);
-  --color-neutral-50: var(--neutral-50);
-  --color-neutral-40: var(--neutral-40);
-  --color-neutral-30: var(--neutral-30);
-  --color-neutral-20: var(--neutral-20);
-  --color-neutral-10: var(--neutral-10);
+  /* Gray (Neutral) */
+  --color-gray-70: var(--gray-70);
+  --color-gray-60: var(--gray-60);
+  --color-gray-50: var(--gray-50);
+  --color-gray-40: var(--gray-40);
+  --color-gray-30: var(--gray-30);
+  --color-gray-20: var(--gray-20);
+  --color-gray-10: var(--gray-10);
 
   /* Overlays */
   --color-overlay-dark: var(--overlay-dark);
   --color-overlay-light: var(--overlay-light);
+
+  /* ── Extended Semantic Token Utilities (Layer 3) ──────────
+     New tokens for bg-muted, btn-*, text-muted, text-on-primary
+     ─────────────────────────────────────────────────────────── */
+  --color-bg-muted:           var(--bg-muted);
+  --color-btn-primary-bg:     var(--btn-primary-bg);
+  --color-btn-secondary-bg:   var(--btn-secondary-bg);
+  --color-btn-outline-border: var(--btn-outline-border);
+  --color-text-muted:         var(--text-muted);
+  --color-text-on-primary:    var(--text-on-primary);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -187,14 +248,14 @@
      These values NEVER change between light/dark theme.
      ════════════════════════════════════════════════════════════ */
 
-  /* ── Primary (Red) ────────────────────────────── H ≈ 349° */
-  --primary-70: hsl(349 100% 25%);  /* #7D0017 */
-  --primary-60: hsl(349  95% 35%);  /* #B00423 */
-  --primary-50: hsl(349  95% 41%);  /* #CA0528 */
-  --primary-40: hsl(349  96% 46%);  /* #E3052D */
-  --primary-30: hsl(349  98% 55%);  /* #FD1B44 ← brand core */
-  --primary-20: hsl(349  99% 65%);  /* #FE5070 */
-  --primary-10: hsl(349  78% 88%);  /* #F8C8D1 */
+  /* ── Red (Primary) ────────────────────────────── H ≈ 349° */
+  --red-70: hsl(349 100% 25%);  /* #7D0017 */
+  --red-60: hsl(349  95% 35%);  /* #B00423 */
+  --red-50: hsl(349  95% 41%);  /* #CA0528 */
+  --red-40: hsl(349  96% 46%);  /* #E3052D */
+  --red-30: hsl(349  98% 55%);  /* #FD1B44 ← brand core */
+  --red-20: hsl(349  99% 65%);  /* #FE5070 */
+  --red-10: hsl(349  78% 88%);  /* #F8C8D1 */
 
   /* ── Blue ─────────────────────────────────────── H ≈ 213° */
   --blue-70: hsl(213 100% 29%);  /* #004496 */
@@ -250,14 +311,14 @@
   --yellow-20: hsl(36 100% 62%);  /* #FFB23E */
   --yellow-10: hsl(36 100% 90%);  /* #FFEACA */
 
-  /* ── Neutral (Gray) ───────────────────────────── H ≈ 220° */
-  --neutral-70: hsl(220  11%  5%);  /* #0C0D0F ← brand dark  */
-  --neutral-60: hsl(225   8% 10%);  /* #18191C */
-  --neutral-50: hsl(217   9% 17%);  /* #26292E */
-  --neutral-40: hsl(216   8% 35%);  /* #525861 */
-  --neutral-30: hsl(221   7% 61%);  /* #9498A1 */
-  --neutral-20: hsl(221  13% 81%);  /* #C7CBD4 */
-  --neutral-10: hsl(222 100% 98%);  /* #F5F8FF */
+  /* ── Gray (Neutral) ───────────────────────────── H ≈ 220° */
+  --gray-70: hsl(220  11%  5%);  /* #0C0D0F ← brand dark  */
+  --gray-60: hsl(225   8% 10%);  /* #18191C */
+  --gray-50: hsl(217   9% 17%);  /* #26292E */
+  --gray-40: hsl(216   8% 35%);  /* #525861 */
+  --gray-30: hsl(221   7% 61%);  /* #9498A1 */
+  --gray-20: hsl(221  13% 81%);  /* #C7CBD4 */
+  --gray-10: hsl(222 100% 98%);  /* #F5F8FF */
 
   /* ── Overlays ────────────────────────────────────────────── */
   --overlay-dark:  hsl(220 11% 5% / 0.85);   /* #0C0D0F @ 85% */
@@ -269,9 +330,9 @@
      ════════════════════════════════════════════════════════════ */
 
   /* ── VIDI Brand Tokens ───────────────────────────────────── */
-  --vidi-primary:          var(--primary-30);  /* #FD1B44 */
-  --vidi-primary-hover:    var(--primary-40);  /* #E3052D */
-  --vidi-primary-active:   var(--primary-50);  /* #CA0528 */
+  --vidi-primary:          var(--red-30);  /* #FD1B44 */
+  --vidi-primary-hover:    var(--red-40);  /* #E3052D */
+  --vidi-primary-active:   var(--red-50);  /* #CA0528 */
   --vidi-primary-foreground: #ffffff;
 
   --vidi-extended:         var(--blue-30);     /* #0074FF */
@@ -279,10 +340,10 @@
   --vidi-extended-active:  var(--blue-50);     /* #005DCC */
   --vidi-extended-foreground: #ffffff;
 
-  --vidi-neutral:          var(--neutral-70);  /* #0C0D0F */
-  --vidi-neutral-hover:    var(--neutral-60);  /* #18191C */
-  --vidi-neutral-active:   var(--neutral-50);  /* #26292E */
-  --vidi-neutral-foreground: var(--neutral-10);  /* #F5F8FF */
+  --vidi-neutral:          var(--gray-70);  /* #0C0D0F */
+  --vidi-neutral-hover:    var(--gray-60);  /* #18191C */
+  --vidi-neutral-active:   var(--gray-50);  /* #26292E */
+  --vidi-neutral-foreground: var(--gray-10);  /* #F5F8FF */
 
   /* ── shadcn semantic tokens (zinc base + VIDI overrides) ─── */
   --background: oklch(1 0 0);
@@ -315,12 +376,57 @@
 
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-primary: var(--vidi-primary);
-  --sidebar-primary-foreground: var(--vidi-primary-foreground);
+  --sidebar-primary: var(--red-30);
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: oklch(0.967 0.001 286.375);
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: var(--vidi-primary);
+  --sidebar-ring: var(--red-30);
+
+  /* ════════════════════════════════════════════════════════════
+     LAYER 3 · UI Semantic Tokens
+     Cross-platform named roles for Web, iOS, and Android.
+     These are FIXED — they do not change between light/dark.
+     Reference these by name on all platforms, never raw hex.
+     ════════════════════════════════════════════════════════════ */
+
+  /* ── Brand Actions ─────────────────────────────────────────── */
+  --brand-primary:        var(--red-50);   /* #CA0528 */
+  --brand-primary-hover:  var(--red-60);   /* #B00423 */
+  --brand-primary-active: var(--red-70);   /* #7D0017 */
+
+  /* ── Surface & Backgrounds ─────────────────────────────────── */
+  --bg-base:    var(--gray-70);      /* #0C0D0F — root canvas */
+  --bg-surface: var(--gray-60);      /* #18191C — cards, panels */
+  --bg-overlay: var(--overlay-dark); /* rgba(12,13,15,0.85) */
+
+  /* ── Content & Text ────────────────────────────────────────── */
+  --text-primary:   var(--gray-10);  /* #F5F8FF — high contrast */
+  --text-secondary: var(--gray-30);  /* #9498A1 — muted */
+  --text-brand:     var(--red-40);   /* #E3052D — accents */
+
+  /* ── States (Functional) ───────────────────────────────────── */
+  --state-info:    var(--blue-50);    /* #005DCC */
+  --state-success: var(--green-50);   /* #10AD58 */
+  --state-warning: var(--yellow-50);  /* #C78015 */
+  --state-error:   var(--red-50);     /* #CA0528 */
+
+  /* ════════════════════════════════════════════════════════════
+     LAYER 3 EXTENSION · Refined Semantic Architecture
+     Zinc dark style — bg, btn, and text hierarchy refinement.
+     ════════════════════════════════════════════════════════════ */
+
+  /* ── Background Hierarchy ──────────────────────────────────── */
+  --bg-muted: var(--gray-50);            /* #26292E — subtle / muted surface */
+
+  /* ── Button Semantic Tokens ────────────────────────────────── */
+  --btn-primary-bg:     var(--red-30);   /* #FD1B44 — primary CTA background */
+  --btn-secondary-bg:   var(--gray-50);  /* #26292E — secondary action background */
+  --btn-outline-border: var(--gray-40);  /* #525861 — outline button border */
+
+  /* ── Text Hierarchy Extension ──────────────────────────────── */
+  --text-muted:       var(--gray-40);    /* #525861 — de-emphasized / helper text */
+  --text-on-primary:  #ffffff;           /* White — on colored buttons & fills */
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -331,9 +437,9 @@
   /* ── VIDI Brand (dark theme overrides) ──────────────────────
      Primary: #CA0528 (primary-50)  ·  sole brand colour
      ─────────────────────────────────────────────────────────── */
-  --vidi-primary:          var(--primary-50);  /* #CA0528 — dark-mode red */
-  --vidi-primary-hover:    var(--primary-40);  /* #E3052D — brighter on hover */
-  --vidi-primary-active:   var(--primary-60);  /* #B00423 — pressed */
+  --vidi-primary:          var(--red-50);  /* #CA0528 — dark-mode red */
+  --vidi-primary-hover:    var(--red-40);  /* #E3052D — brighter on hover */
+  --vidi-primary-active:   var(--red-60);  /* #B00423 — pressed */
   --vidi-primary-foreground: #ffffff;
 
   --vidi-extended:         var(--blue-20);     /* #348BF4 — lighter in dark */
@@ -341,10 +447,10 @@
   --vidi-extended-active:  var(--blue-30);     /* #0074FF */
   --vidi-extended-foreground: #ffffff;
 
-  --vidi-neutral:          var(--neutral-10);  /* #F5F8FF — inverted */
-  --vidi-neutral-hover:    var(--neutral-20);  /* #C7CBD4 */
-  --vidi-neutral-active:   var(--neutral-30);  /* #9498A1 */
-  --vidi-neutral-foreground: var(--neutral-70);  /* #0C0D0F */
+  --vidi-neutral:          var(--gray-10);  /* #F5F8FF — inverted */
+  --vidi-neutral-hover:    var(--gray-20);  /* #C7CBD4 */
+  --vidi-neutral-active:   var(--gray-30);  /* #9498A1 */
+  --vidi-neutral-foreground: var(--gray-70);  /* #0C0D0F */
 
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.985 0 0);
@@ -374,12 +480,12 @@
   /* ── Sidebar — primary red (#CA0528) for hover/active states ─ */
   --sidebar: oklch(0.18 0.006 285.885);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: var(--primary-50);            /* #CA0528 — active indicator */
+  --sidebar-primary: var(--red-50);                /* #CA0528 — active indicator */
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: oklch(0.22 0.018 17);          /* dark red-zinc hover/active bg */
   --sidebar-accent-foreground: oklch(0.92 0.012 17); /* light rose text */
   --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: var(--primary-50);
+  --sidebar-ring: var(--red-50);
 }
 
 @layer base {

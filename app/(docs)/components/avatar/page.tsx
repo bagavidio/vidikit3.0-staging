@@ -126,13 +126,13 @@ export default function AvatarPage() {
           <Demo label="offline">
             <Avatar size="lg">
               <AvatarFallback>NK</AvatarFallback>
-              <AvatarBadge className="bg-neutral-40" />
+              <AvatarBadge className="bg-gray-40" />
             </Avatar>
           </Demo>
           <Demo label="dnd">
             <Avatar size="lg">
               <AvatarFallback>YR</AvatarFallback>
-              <AvatarBadge className="bg-primary-30" />
+              <AvatarBadge className="bg-red-30" />
             </Avatar>
           </Demo>
         </Section>

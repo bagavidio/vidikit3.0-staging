@@ -108,9 +108,9 @@ export default function BadgePage() {
             </span>
             Away
           </Badge>
-          <Badge variant="outline" className="border-primary-30/40 bg-primary-30/10 text-primary-30">
+          <Badge variant="outline" className="border-red-30/40 bg-red-30/10 text-red-30">
             <span data-icon="inline-start" className="inline-flex">
-              <Dot className="size-1.5 text-primary-30 fill-current" />
+              <Dot className="size-1.5 text-red-30 fill-current" />
             </span>
             Critical
           </Badge>

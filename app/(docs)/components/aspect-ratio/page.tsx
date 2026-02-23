@@ -110,7 +110,7 @@ export default function AspectRatioPage() {
                 16 : 9 — video thumbnail
               </p>
               <AspectRatio ratio={16 / 9}>
-                <div className="size-full rounded-xl bg-gradient-to-br from-primary-30/20 via-pink-30/10 to-blue-30/20 border border-border flex flex-col items-center justify-center gap-2">
+                <div className="size-full rounded-xl bg-gradient-to-br from-red-30/20 via-pink-30/10 to-blue-30/20 border border-border flex flex-col items-center justify-center gap-2">
                   {/* Play icon placeholder */}
                   <div className="size-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
                     <svg viewBox="0 0 16 16" className="size-4 fill-current text-foreground ml-0.5" aria-hidden="true">
@@ -150,7 +150,7 @@ export default function AspectRatioPage() {
             {[
               { ratio: 9 / 16, label: "9 : 16",  w: "w-28", className: "bg-yellow-30/10 border border-yellow-30/20" },
               { ratio: 3 / 4,  label: "3 : 4",   w: "w-36", className: "bg-pink-30/10 border border-pink-30/20" },
-              { ratio: 2 / 3,  label: "2 : 3",   w: "w-32", className: "bg-primary-30/10 border border-primary-30/20" },
+              { ratio: 2 / 3,  label: "2 : 3",   w: "w-32", className: "bg-red-30/10 border border-red-30/20" },
             ].map(({ ratio, label, w, className }) => (
               <div key={label} className={`${w} space-y-2`}>
                 <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -178,7 +178,7 @@ export default function AspectRatioPage() {
                 "from-purple-30/20 to-pink-30/10",
                 "from-green-30/20 to-tosca-30/10",
                 "from-yellow-30/20 to-green-30/10",
-                "from-primary-30/20 to-pink-30/10",
+                "from-red-30/20 to-pink-30/10",
                 "from-blue-30/20 to-purple-30/10",
               ];
               return (
