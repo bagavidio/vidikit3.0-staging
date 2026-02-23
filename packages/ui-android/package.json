@@ -1,0 +1,6 @@
+{
+  "name": "@vidikit/ui-android",
+  "version": "0.1.0",
+  "private": true,
+  "description": "VIDI Design System — Android (Jetpack Compose) reference stubs"
+}

@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+**/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -16,9 +17,15 @@
 # next.js
 /.next/
 /out/
+apps/docs/.next/
+apps/docs/out/
 
 # production
 /build
+apps/docs/.turbo/
+
+# monorepo package dist (generated, keep in git for native handoff)
+# packages/tokens/dist/ — intentionally committed for native consumers
 
 # misc
 .DS_Store

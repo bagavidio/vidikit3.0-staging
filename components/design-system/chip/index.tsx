@@ -13,7 +13,8 @@
  */
 
 import * as React from "react";
-import { X } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils";
 import { chipVariants, type ChipVariants } from "./chip.variants";
 
@@ -125,7 +126,7 @@ function DismissButton({
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       )}
     >
-      <X className={iconSize} />
+      <HugeiconsIcon icon={Cancel01Icon} className={iconSize} />
     </button>
   );
 }

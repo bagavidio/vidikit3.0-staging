@@ -4,7 +4,8 @@
  */
 
 import { Button, ButtonGroup } from "@/components/design-system";
-import { Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { TextBoldIcon, TextItalicIcon, TextUnderlineIcon, TextAlignLeftIcon, TextAlignCenterIcon, TextAlignRightIcon } from "@hugeicons/core-free-icons";
 
 // ── Spec data ─────────────────────────────────────────────────────────────────
 
@@ -49,9 +50,9 @@ export default function ButtonGroupPage() {
             Default
           </h2>
           <ButtonGroup>
-            <Button intent="outline" size="sm"><Bold className="size-4" /></Button>
-            <Button intent="outline" size="sm"><Italic className="size-4" /></Button>
-            <Button intent="outline" size="sm"><Underline className="size-4" /></Button>
+            <Button intent="outline" size="sm"><HugeiconsIcon icon={TextBoldIcon} className="size-4" /></Button>
+            <Button intent="outline" size="sm"><HugeiconsIcon icon={TextItalicIcon} className="size-4" /></Button>
+            <Button intent="outline" size="sm"><HugeiconsIcon icon={TextUnderlineIcon} className="size-4" /></Button>
           </ButtonGroup>
         </section>
 
@@ -74,9 +75,9 @@ export default function ButtonGroupPage() {
             Alignment Toolbar
           </h2>
           <ButtonGroup size="lg">
-            <Button intent="outline"><AlignLeft className="size-4" /></Button>
-            <Button intent="outline"><AlignCenter className="size-4" /></Button>
-            <Button intent="outline"><AlignRight className="size-4" /></Button>
+            <Button intent="outline"><HugeiconsIcon icon={TextAlignLeftIcon} className="size-4" /></Button>
+            <Button intent="outline"><HugeiconsIcon icon={TextAlignCenterIcon} className="size-4" /></Button>
+            <Button intent="outline"><HugeiconsIcon icon={TextAlignRightIcon} className="size-4" /></Button>
           </ButtonGroup>
         </section>
 
@@ -136,12 +137,13 @@ export default function ButtonGroupPage() {
           <div className="overflow-hidden rounded-xl border border-border bg-muted/20">
             <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-foreground/80">
 {`import { Button, ButtonGroup } from "@/components/design-system";
-import { Bold, Italic, Underline } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { TextBoldIcon, TextItalicIcon, TextUnderlineIcon } from "@hugeicons/core-free-icons";
 
 <ButtonGroup>
-  <Button intent="outline" size="sm"><Bold /></Button>
-  <Button intent="outline" size="sm"><Italic /></Button>
-  <Button intent="outline" size="sm"><Underline /></Button>
+  <Button intent="outline" size="sm"><HugeiconsIcon icon={TextBoldIcon} /></Button>
+  <Button intent="outline" size="sm"><HugeiconsIcon icon={TextItalicIcon} /></Button>
+  <Button intent="outline" size="sm"><HugeiconsIcon icon={TextUnderlineIcon} /></Button>
 </ButtonGroup>
 
 {/* Vertical */}

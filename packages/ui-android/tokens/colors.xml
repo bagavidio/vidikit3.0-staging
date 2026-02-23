@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  VIDI Design System — Android Color Tokens
+  Generated: 2026-02-23T08:35:23.166Z
+  Source: packages/tokens/src/palette.ts
+-->
+<resources>
+    <!-- Red -->
+    <color name="vidi_red_10">#F8C8D1</color>
+    <color name="vidi_red_20">#FE5070</color>
+    <color name="vidi_red_30">#FD1B44</color>
+    <color name="vidi_red_40">#E3052D</color>
+    <color name="vidi_red_50">#CA0528</color>
+    <color name="vidi_red_60">#B00423</color>
+    <color name="vidi_red_70">#7D0017</color>
+
+    <!-- Blue -->
+    <color name="vidi_blue_10">#CAE2FF</color>
+    <color name="vidi_blue_20">#348BF4</color>
+    <color name="vidi_blue_30">#0074FF</color>
+    <color name="vidi_blue_40">#0067E2</color>
+    <color name="vidi_blue_50">#005DCC</color>
+    <color name="vidi_blue_60">#0153B6</color>
+    <color name="vidi_blue_70">#004496</color>
+
+    <!-- Tosca -->
+    <color name="vidi_tosca_10">#BDF2F5</color>
+    <color name="vidi_tosca_20">#1CCEDA</color>
+    <color name="vidi_tosca_30">#10C1CC</color>
+    <color name="vidi_tosca_40">#0D9AA3</color>
+    <color name="vidi_tosca_50">#0C9199</color>
+    <color name="vidi_tosca_60">#0A747A</color>
+    <color name="vidi_tosca_70">#07575C</color>
+
+    <!-- Green -->
+    <color name="vidi_green_10">#C4FBDD</color>
+    <color name="vidi_green_20">#25E57E</color>
+    <color name="vidi_green_30">#22DA76</color>
+    <color name="vidi_green_40">#0ABA5B</color>
+    <color name="vidi_green_50">#10AD58</color>
+    <color name="vidi_green_60">#078E45</color>
+    <color name="vidi_green_70">#09782E</color>
+
+    <!-- Purple -->
+    <color name="vidi_purple_10">#D8BFF8</color>
+    <color name="vidi_purple_20">#7318E7</color>
+    <color name="vidi_purple_30">#6410CF</color>
+    <color name="vidi_purple_40">#500DA6</color>
+    <color name="vidi_purple_50">#4B0C9B</color>
+    <color name="vidi_purple_60">#3C0A7C</color>
+    <color name="vidi_purple_70">#2D075D</color>
+
+    <!-- Pink -->
+    <color name="vidi_pink_10">#FFC6FA</color>
+    <color name="vidi_pink_20">#E124CF</color>
+    <color name="vidi_pink_30">#CC16BB</color>
+    <color name="vidi_pink_40">#A31296</color>
+    <color name="vidi_pink_50">#99118C</color>
+    <color name="vidi_pink_60">#7A0D70</color>
+    <color name="vidi_pink_70">#5C0A54</color>
+
+    <!-- Yellow -->
+    <color name="vidi_yellow_10">#FFEACA</color>
+    <color name="vidi_yellow_20">#FFB23E</color>
+    <color name="vidi_yellow_30">#F9A01A</color>
+    <color name="vidi_yellow_40">#E09017</color>
+    <color name="vidi_yellow_50">#C78015</color>
+    <color name="vidi_yellow_60">#BB7814</color>
+    <color name="vidi_yellow_70">#956010</color>
+
+    <!-- Gray -->
+    <color name="vidi_gray_10">#F5F8FF</color>
+    <color name="vidi_gray_20">#C7CBD4</color>
+    <color name="vidi_gray_30">#9498A1</color>
+    <color name="vidi_gray_40">#525861</color>
+    <color name="vidi_gray_50">#26292E</color>
+    <color name="vidi_gray_60">#18191C</color>
+    <color name="vidi_gray_70">#0C0D0F</color>
+
+</resources>

@@ -8,7 +8,8 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Tick01Icon, Copy01Icon } from "@hugeicons/core-free-icons";
 import { palette, special } from "@/lib/tokens/palette";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -134,9 +135,9 @@ function CopyButton({ hex, dark }: CopyButtonProps) {
       style={{ backgroundColor: dark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.08)" }}
     >
       {copied ? (
-        <Check className="size-3" style={{ color: iconColor }} />
+        <HugeiconsIcon icon={Tick01Icon} className="size-3" style={{ color: iconColor }} />
       ) : (
-        <Copy className="size-3" style={{ color: iconColor }} />
+        <HugeiconsIcon icon={Copy01Icon} className="size-3" style={{ color: iconColor }} />
       )}
     </button>
   );
@@ -271,7 +272,7 @@ export default function ColorsPage() {
           </div>
           <span className="text-border">·</span>
           <div className="flex items-center gap-2">
-            <Copy className="size-3" />
+            <HugeiconsIcon icon={Copy01Icon} className="size-3" />
             <span>Hover swatch to copy hex</span>
           </div>
         </div>

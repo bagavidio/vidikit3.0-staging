@@ -1,0 +1,90 @@
+/**
+ * @vidikit/tokens — CSS Custom Properties
+ * ─────────────────────────────────────────────────────────────
+ * All VIDI primitive color tokens as CSS vars.
+ * Import in a consuming app's globals.css:
+ *
+ *   @import "@vidikit/tokens/tokens.css";
+ *
+ * Override in the consuming app:
+ *
+ *   @layer base {
+ *     :root { --vidi-red-30: #FF0000; }
+ *   }
+ */
+
+@layer base {
+  :root {
+    /* ── Red ─────────────────────────────────────── */
+    --vidi-red-10: #F8C8D1;
+    --vidi-red-20: #FE5070;
+    --vidi-red-30: #FD1B44;
+    --vidi-red-40: #E3052D;
+    --vidi-red-50: #CA0528;
+    --vidi-red-60: #B00423;
+    --vidi-red-70: #7D0017;
+
+    /* ── Blue ────────────────────────────────────── */
+    --vidi-blue-10: #CAE2FF;
+    --vidi-blue-20: #348BF4;
+    --vidi-blue-30: #0074FF;
+    --vidi-blue-40: #0067E2;
+    --vidi-blue-50: #005DCC;
+    --vidi-blue-60: #0153B6;
+    --vidi-blue-70: #004496;
+
+    /* ── Tosca ───────────────────────────────────── */
+    --vidi-tosca-10: #BDF2F5;
+    --vidi-tosca-20: #1CCEDA;
+    --vidi-tosca-30: #10C1CC;
+    --vidi-tosca-40: #0D9AA3;
+    --vidi-tosca-50: #0C9199;
+    --vidi-tosca-60: #0A747A;
+    --vidi-tosca-70: #07575C;
+
+    /* ── Green ───────────────────────────────────── */
+    --vidi-green-10: #C4FBDD;
+    --vidi-green-20: #25E57E;
+    --vidi-green-30: #22DA76;
+    --vidi-green-40: #0ABA5B;
+    --vidi-green-50: #10AD58;
+    --vidi-green-60: #078E45;
+    --vidi-green-70: #09782E;
+
+    /* ── Purple ──────────────────────────────────── */
+    --vidi-purple-10: #D8BFF8;
+    --vidi-purple-20: #7318E7;
+    --vidi-purple-30: #6410CF;
+    --vidi-purple-40: #500DA6;
+    --vidi-purple-50: #4B0C9B;
+    --vidi-purple-60: #3C0A7C;
+    --vidi-purple-70: #2D075D;
+
+    /* ── Pink ────────────────────────────────────── */
+    --vidi-pink-10: #FFC6FA;
+    --vidi-pink-20: #E124CF;
+    --vidi-pink-30: #CC16BB;
+    --vidi-pink-40: #A31296;
+    --vidi-pink-50: #99118C;
+    --vidi-pink-60: #7A0D70;
+    --vidi-pink-70: #5C0A54;
+
+    /* ── Yellow ──────────────────────────────────── */
+    --vidi-yellow-10: #FFEACA;
+    --vidi-yellow-20: #FFB23E;
+    --vidi-yellow-30: #F9A01A;
+    --vidi-yellow-40: #E09017;
+    --vidi-yellow-50: #C78015;
+    --vidi-yellow-60: #BB7814;
+    --vidi-yellow-70: #956010;
+
+    /* ── Gray ────────────────────────────────────── */
+    --vidi-gray-10: #F5F8FF;
+    --vidi-gray-20: #C7CBD4;
+    --vidi-gray-30: #9498A1;
+    --vidi-gray-40: #525861;
+    --vidi-gray-50: #26292E;
+    --vidi-gray-60: #18191C;
+    --vidi-gray-70: #0C0D0F;
+  }
+}

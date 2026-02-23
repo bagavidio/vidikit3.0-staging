@@ -4,7 +4,8 @@
  */
 
 import { Item } from "@/components/design-system";
-import { Play, ChevronRight, Settings, User, Bell, Star, Wifi, Shield } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { PlayCircleIcon, ChevronRight, Setting06Icon, User02Icon, Notification01Icon, FavouriteIcon, WifiConnected01Icon, Shield01Icon } from "@hugeicons/core-free-icons";
 
 // ── Spec data ─────────────────────────────────────────────────────────────────
 
@@ -54,22 +55,22 @@ export default function ItemPage() {
           </h2>
           <div className="max-w-md space-y-1 rounded-xl border border-border bg-card p-2">
             <Item
-              icon={<Play className="size-4" />}
+              icon={<HugeiconsIcon icon={PlayCircleIcon} className="size-4" />}
               title="Episode 1"
               description="The Beginning"
-              trailing={<ChevronRight className="size-4" />}
+              trailing={<HugeiconsIcon icon={ChevronRight} className="size-4" />}
             />
             <Item
-              icon={<Play className="size-4" />}
+              icon={<HugeiconsIcon icon={PlayCircleIcon} className="size-4" />}
               title="Episode 2"
               description="The Journey"
-              trailing={<ChevronRight className="size-4" />}
+              trailing={<HugeiconsIcon icon={ChevronRight} className="size-4" />}
             />
             <Item
-              icon={<Play className="size-4" />}
+              icon={<HugeiconsIcon icon={PlayCircleIcon} className="size-4" />}
               title="Episode 3"
               description="The Finale"
-              trailing={<ChevronRight className="size-4" />}
+              trailing={<HugeiconsIcon icon={ChevronRight} className="size-4" />}
             />
           </div>
         </section>
@@ -81,21 +82,21 @@ export default function ItemPage() {
           </h2>
           <div className="max-w-md space-y-1 rounded-xl border border-border bg-card p-2">
             <Item
-              icon={<Star className="size-4" />}
+              icon={<HugeiconsIcon icon={FavouriteIcon} className="size-4" />}
               title="Favorites"
               variant="active"
               trailing={<span className="text-xs text-red-30 font-medium">12</span>}
             />
             <Item
-              icon={<Bell className="size-4" />}
+              icon={<HugeiconsIcon icon={Notification01Icon} className="size-4" />}
               title="Notifications"
               trailing={<span className="text-xs text-muted-foreground font-medium">3</span>}
             />
             <Item
-              icon={<User className="size-4" />}
+              icon={<HugeiconsIcon icon={User02Icon} className="size-4" />}
               title="Profile"
               variant="muted"
-              trailing={<ChevronRight className="size-4" />}
+              trailing={<HugeiconsIcon icon={ChevronRight} className="size-4" />}
             />
           </div>
         </section>
@@ -108,15 +109,15 @@ export default function ItemPage() {
           <div className="max-w-md space-y-3">
             <div className="space-y-1 rounded-xl border border-border bg-card p-2">
               <p className="px-3 pt-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">sm</p>
-              <Item size="sm" icon={<Wifi className="size-3" />} title="Wi-Fi" description="Connected" />
+              <Item size="sm" icon={<HugeiconsIcon icon={WifiConnected01Icon} className="size-3" />} title="Wi-Fi" description="Connected" />
             </div>
             <div className="space-y-1 rounded-xl border border-border bg-card p-2">
               <p className="px-3 pt-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">default</p>
-              <Item icon={<Settings className="size-4" />} title="Settings" description="Manage preferences" />
+              <Item icon={<HugeiconsIcon icon={Setting06Icon} className="size-4" />} title="Settings" description="Manage preferences" />
             </div>
             <div className="space-y-1 rounded-xl border border-border bg-card p-2">
               <p className="px-3 pt-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">lg</p>
-              <Item size="lg" icon={<Shield className="size-5" />} title="Security" description="Two-factor authentication enabled" />
+              <Item size="lg" icon={<HugeiconsIcon icon={Shield01Icon} className="size-5" />} title="Security" description="Two-factor authentication enabled" />
             </div>
           </div>
         </section>
@@ -165,13 +166,14 @@ export default function ItemPage() {
           <div className="overflow-hidden rounded-xl border border-border bg-muted/20">
             <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-foreground/80">
 {`import { Item } from "@/components/design-system";
-import { Play, ChevronRight } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { PlayCircleIcon, ChevronRight, Setting06Icon } from "@hugeicons/core-free-icons";
 
 <Item
-  icon={<Play className="size-4" />}
+  icon={<HugeiconsIcon icon={PlayCircleIcon} className="size-4" />}
   title="Episode 1"
   description="The Beginning"
-  trailing={<ChevronRight className="size-4" />}
+  trailing={<HugeiconsIcon icon={ChevronRight} className="size-4" />}
   onClick={() => navigate("/ep/1")}
 />
 
@@ -179,7 +181,7 @@ import { Play, ChevronRight } from "lucide-react";
 <Item variant="active" title="Current Page" />
 
 {/* Large for TV */}
-<Item size="lg" title="Settings" icon={<Settings />} />`}
+<Item size="lg" title="Settings" icon={<HugeiconsIcon icon={Setting06Icon} />} />`}
             </pre>
           </div>
         </section>

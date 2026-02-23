@@ -5,7 +5,8 @@
 
 import { EmptyState } from "@/components/design-system";
 import { Button } from "@/components/design-system";
-import { Inbox, Search, FileX, WifiOff } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { InboxIcon, Search01Icon, FileRemoveIcon, WifiOff01Icon } from "@hugeicons/core-free-icons";
 
 // ── Spec data ─────────────────────────────────────────────────────────────────
 
@@ -51,7 +52,7 @@ export default function EmptyStatePage() {
             Default — No Data
           </h2>
           <EmptyState
-            icon={<Inbox className="size-10" />}
+            icon={<HugeiconsIcon icon={InboxIcon} className="size-10" />}
             title="No items yet"
             description="Create your first item to get started with your collection."
             action={<Button intent="primary" size="sm">Create Item</Button>}
@@ -64,7 +65,7 @@ export default function EmptyStatePage() {
             Search — No Results
           </h2>
           <EmptyState
-            icon={<Search className="size-10" />}
+            icon={<HugeiconsIcon icon={Search01Icon} className="size-10" />}
             title="No results found"
             description="Try adjusting your search or filter to find what you're looking for."
             action={<Button intent="ghost" size="sm">Clear Filters</Button>}
@@ -77,7 +78,7 @@ export default function EmptyStatePage() {
             Error — Not Found
           </h2>
           <EmptyState
-            icon={<FileX className="size-10" />}
+            icon={<HugeiconsIcon icon={FileRemoveIcon} className="size-10" />}
             title="Page not found"
             description="The resource you're looking for doesn't exist or has been moved."
           />
@@ -89,7 +90,7 @@ export default function EmptyStatePage() {
             Offline
           </h2>
           <EmptyState
-            icon={<WifiOff className="size-10" />}
+            icon={<HugeiconsIcon icon={WifiOff01Icon} className="size-10" />}
             title="You're offline"
             description="Check your internet connection and try again."
             action={<Button intent="outline" size="sm">Retry</Button>}
@@ -140,10 +141,11 @@ export default function EmptyStatePage() {
           <div className="overflow-hidden rounded-xl border border-border bg-muted/20">
             <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-foreground/80">
 {`import { EmptyState, Button } from "@/components/design-system";
-import { Inbox } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { InboxIcon } from "@hugeicons/core-free-icons";
 
 <EmptyState
-  icon={<Inbox className="size-10" />}
+  icon={<HugeiconsIcon icon={InboxIcon} className="size-10" />}
   title="No items yet"
   description="Create your first item to get started."
   action={<Button intent="primary" size="sm">Create</Button>}

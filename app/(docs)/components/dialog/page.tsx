@@ -19,7 +19,8 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/design-system";
-import { Trash2, Settings } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Delete01Icon, Setting06Icon } from "@hugeicons/core-free-icons";
 
 // ── Spec data ─────────────────────────────────────────────────────────────────
 
@@ -50,7 +51,7 @@ function ConfirmDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button intent="destructive" size="sm">
-          <Trash2 className="size-4" />
+          <HugeiconsIcon icon={Delete01Icon} className="size-4" />
           Delete Account
         </Button>
       </DialogTrigger>
@@ -86,7 +87,7 @@ function SettingsDialog() {
     <Dialog>
       <DialogTrigger asChild>
         <Button intent="outline" size="sm">
-          <Settings className="size-4" />
+          <HugeiconsIcon icon={Setting06Icon} className="size-4" />
           Open Settings
         </Button>
       </DialogTrigger>

@@ -16,17 +16,9 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import {
-  Layers,
-  Code2,
-  Grid3X3,
-  Ruler,
-  ArrowRight,
-  Shield,
-  Sparkles,
-  TrendingUp,
-  MessageSquare,
-} from "lucide-react";
+import { Grid3X3, Ruler, Code2, ArrowRight, MessageSquare } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Layers01Icon, Shield01Icon, SparklesIcon, ChartIncreaseIcon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/design-system";
 import { docsLinks } from "@/config/docs";
 
@@ -50,7 +42,7 @@ interface Principle {
 
 const shortcuts: ShortcutCard[] = [
   {
-    icon: <Layers className="size-5" />,
+    icon: <HugeiconsIcon icon={Layers01Icon} className="size-5" />,
     title: "Foundations",
     description: "Color tokens, typography scale, spacing, radius, and design language documentation.",
     href: "/foundations/colors",
@@ -78,17 +70,17 @@ const shortcuts: ShortcutCard[] = [
 
 const principles: Principle[] = [
   {
-    icon: <Shield className="size-5" />,
+    icon: <HugeiconsIcon icon={Shield01Icon} className="size-5" />,
     title: "Reliable",
     body: "Consistently has the most complete and updated information. Such as detailed explanations, experiences, and behaviors that are well structured so that they can be understood by all teams.",
   },
   {
-    icon: <Sparkles className="size-5" />,
+    icon: <HugeiconsIcon icon={SparklesIcon} className="size-5" />,
     title: "Delightful",
     body: "Together we design experiences to encourage critical thinking and self-confidence as creatives who can provide the right solutions. Produce components that have impact and appropriate for the needs of all teams.",
   },
   {
-    icon: <TrendingUp className="size-5" />,
+    icon: <HugeiconsIcon icon={ChartIncreaseIcon} className="size-5" />,
     title: "Evolving",
     body: "Room to grow with a clear foundation. Gradually, especially from simple forms to more complex forms. Have a strong basis for developing functions such as research results, data, and technological developments.",
   },
