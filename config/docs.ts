@@ -35,7 +35,7 @@ export const docsNav: NavGroup[] = [
     items: [
       { title: "Introduction",  href: "/" },
       { title: "Installation",  href: "/getting-started/installation", disabled: true },
-      { title: "Principles",    href: "/getting-started/principles",   disabled: true },
+      { title: "Principles",    href: "/#principles" },
       { title: "Brand",         href: "/getting-started/brand",        disabled: true },
     ],
   },
@@ -55,7 +55,6 @@ export const docsNav: NavGroup[] = [
     title: "Components",
     defaultOpen: true,
     items: [
-      { title: "Aspect Ratio",   href: "/components/aspect-ratio" },
       { title: "Avatar",         href: "/components/avatar" },
       { title: "Badge",          href: "/components/badge" },
       { title: "Button",         href: "/components/button" },
@@ -98,7 +97,7 @@ export const docsNav: NavGroup[] = [
     items: [
       { title: "Design Tokens",   href: "/foundations/semantics" },
       { title: "Breakpoints",     href: "/tokens/breakpoints" },
-      { title: "Aspect Ratios",   href: "/components/aspect-ratio" },
+      { title: "Aspect Ratios",   href: "/tokens/ratio" },
       { title: "Token Export API", href: "/api/tokens", label: "JSON" },
     ],
   },

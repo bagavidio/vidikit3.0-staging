@@ -1,8 +1,8 @@
 /**
  * VIDI Design System — Landing Page
  * ─────────────────────────────────────────────────────────────
- * Interactive hero with cursor-following glow + Framer Motion
- * entrance animations. Three content sections below.
+ * Interactive hero with full-page cursor-following glow +
+ * Framer Motion entrance animations. Four content sections.
  * Route: / (wrapped by (docs)/layout for sidebar + topnav)
  */
 
@@ -20,10 +20,12 @@ import {
   Layers,
   Code2,
   Grid3X3,
+  Ruler,
   ArrowRight,
   Shield,
   Sparkles,
   TrendingUp,
+  MessageSquare,
 } from "lucide-react";
 import { Button } from "@/components/design-system";
 import { docsLinks } from "@/config/docs";
@@ -54,17 +56,23 @@ const shortcuts: ShortcutCard[] = [
     href: "/foundations/colors",
   },
   {
+    icon: <Grid3X3 className="size-5" />,
+    title: "Components",
+    description: "UI components built with shadcn/ui, CVA variants, and VIDI design tokens.",
+    href: "/components/button",
+  },
+  {
+    icon: <Ruler className="size-5" />,
+    title: "Tokens",
+    description: "Design tokens for breakpoints, aspect ratios, and cross-platform consistency.",
+    href: "/tokens/ratio",
+  },
+  {
     icon: <Code2 className="size-5" />,
     title: "Source Code",
     description: "Browse the GitHub repository, contribute, and explore the full codebase.",
     href: docsLinks.github,
     external: true,
-  },
-  {
-    icon: <Grid3X3 className="size-5" />,
-    title: "Components",
-    description: "UI components built with shadcn/ui, CVA variants, and VIDI design tokens.",
-    href: "/components/button",
   },
 ];
 
@@ -109,63 +117,11 @@ const cardVariant = {
   show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
 };
 
-// ── Hero Section with cursor glow ──────────────────────────────────────────────
+// ── Hero Section (content only — glow is page-level) ──────────────────────────
 
 function HeroSection() {
-  const heroRef = useRef<HTMLDivElement>(null);
-
-  const rawX = useMotionValue(0);
-  const rawY = useMotionValue(0);
-
-  const springX = useSpring(rawX, { stiffness: 60, damping: 20 });
-  const springY = useSpring(rawY, { stiffness: 60, damping: 20 });
-
-  // Translate to % offset from center for the glow
-  const glowX = useTransform(springX, (v) => `calc(${v}px - 50%)`);
-  const glowY = useTransform(springY, (v) => `calc(${v}px - 50%)`);
-
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const rect = heroRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    rawX.set(e.clientX - rect.left);
-    rawY.set(e.clientY - rect.top);
-  }
-
-  function handleMouseLeave() {
-    if (!heroRef.current) return;
-    const rect = heroRef.current.getBoundingClientRect();
-    rawX.set(rect.width / 2);
-    rawY.set(rect.height / 2);
-  }
-
   return (
-    <div
-      ref={heroRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="relative overflow-hidden px-8 py-14 sm:px-14 sm:py-20"
-    >
-      {/* Cursor-following ambient glow */}
-      <motion.div
-        className="pointer-events-none absolute size-[480px] rounded-full opacity-20"
-        style={{
-          left: glowX,
-          top: glowY,
-          background: "radial-gradient(circle, var(--red-50) 0%, transparent 70%)",
-          filter: "blur(60px)",
-        }}
-      />
-
-      {/* Static corner glow for depth */}
-      <div
-        className="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full opacity-10"
-        style={{
-          background: "radial-gradient(circle, var(--red-30) 0%, transparent 70%)",
-          filter: "blur(40px)",
-        }}
-      />
-
-      {/* Content */}
+    <div className="relative px-8 py-14 sm:px-14 sm:py-20">
       <div className="relative space-y-6">
         <motion.p
           className="font-mono text-xs font-semibold uppercase tracking-widest text-muted-foreground"
@@ -233,15 +189,60 @@ function HeroSection() {
 // ── Page ─────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
+  const pageRef = useRef<HTMLDivElement>(null);
+
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+
+  const springX = useSpring(rawX, { stiffness: 60, damping: 20 });
+  const springY = useSpring(rawY, { stiffness: 60, damping: 20 });
+
+  const glowX = useTransform(springX, (v) => `calc(${v}px - 240px)`);
+  const glowY = useTransform(springY, (v) => `calc(${v}px - 240px)`);
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    rawX.set(e.clientX);
+    rawY.set(e.clientY);
+  }
+
+  function handleMouseLeave() {
+    rawX.set(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
+    rawY.set(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
+  }
+
   return (
-    <div className="space-y-14 py-10">
+    <div
+      ref={pageRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative space-y-14 py-10"
+    >
+      {/* ── Full-page cursor-following ambient glow ── */}
+      <motion.div
+        className="pointer-events-none fixed z-0 size-[480px] rounded-full opacity-20"
+        style={{
+          left: glowX,
+          top: glowY,
+          background: "radial-gradient(circle, var(--red-50) 0%, transparent 70%)",
+          filter: "blur(60px)",
+        }}
+      />
+
+      {/* Static corner glow for depth */}
+      <div
+        className="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full opacity-10"
+        style={{
+          background: "radial-gradient(circle, var(--red-30) 0%, transparent 70%)",
+          filter: "blur(40px)",
+        }}
+      />
 
       {/* ── Section 1: Interactive Hero (full-width) ──────────────── */}
       <HeroSection />
 
-      <div className="mx-auto max-w-4xl space-y-14 px-6">
+      <div className="relative mx-auto max-w-4xl space-y-14 px-6">
 
-      {/* ── Section 2: Quick Shortcuts ───────────────────────────── */}
+      {/* ── Section 2: Short Cut ──────────────────────────────────── */}
       <section className="space-y-5">
         <motion.h2
           className="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
@@ -251,10 +252,10 @@ export default function HomePage() {
           viewport={{ once: true }}
           custom={0}
         >
-          Quick Access
+          Short Cut
         </motion.h2>
         <motion.div
-          className="grid grid-cols-1 gap-3 sm:grid-cols-3"
+          className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
           variants={stagger}
           initial="hidden"
           whileInView="show"
@@ -267,7 +268,9 @@ export default function HomePage() {
                 className="group flex h-full flex-col gap-4 rounded-xl border border-border bg-card p-5 transition-colors hover:border-red-50/40 hover:bg-card/80"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-red-50">{card.icon}</span>
+                  <div className="flex size-8 items-center justify-center rounded-lg bg-red-50/10">
+                    <span className="text-red-50">{card.icon}</span>
+                  </div>
                   <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
                 </div>
                 <div className="space-y-1.5">
@@ -299,7 +302,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Section 3: Design System Principles ─────────────────── */}
-      <section className="space-y-5">
+      <section id="principles" className="space-y-5 scroll-mt-20">
         <motion.h2
           className="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
           variants={fadeUp}
@@ -330,6 +333,45 @@ export default function HomePage() {
               </div>
             </motion.div>
           ))}
+        </motion.div>
+      </section>
+
+      {/* ── Section 4: Contact Us ──────────────────────────────── */}
+      <section className="space-y-5">
+        <motion.h2
+          className="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          custom={0}
+        >
+          Contact Us
+        </motion.h2>
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          custom={0.08}
+        >
+          <a
+            href="https://chat.google.com/room/AAAAhjgpvX8?cls=7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-4 rounded-xl border border-border bg-card p-5 transition-colors hover:border-red-50/40 hover:bg-card/80"
+          >
+            <div className="flex size-10 items-center justify-center rounded-lg bg-red-50/10">
+              <MessageSquare className="size-5 text-red-50" />
+            </div>
+            <div className="flex-1 space-y-1">
+              <p className="text-sm font-semibold text-foreground">Google Chat</p>
+              <p className="text-xs text-muted-foreground">
+                Have questions or feedback? Reach out to the design system team for improvements and collaboration.
+              </p>
+            </div>
+            <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+          </a>
         </motion.div>
       </section>
 

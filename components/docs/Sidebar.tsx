@@ -77,6 +77,31 @@ export function DocsSidebar() {
                                   </SidebarMenuBadge>
                                 )}
                               </SidebarMenuButton>
+                            ) : item.href.includes("#") ? (
+                              <SidebarMenuButton
+                                asChild
+                                isActive={false}
+                                size="sm"
+                              >
+                                <a
+                                  href={item.href}
+                                  onClick={(e) => {
+                                    const hash = item.href.split("#")[1];
+                                    const base = item.href.split("#")[0] || "/";
+                                    if (hash && pathname === base) {
+                                      e.preventDefault();
+                                      document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+                                    }
+                                  }}
+                                >
+                                  <span>{item.title}</span>
+                                  {item.label && (
+                                    <SidebarMenuBadge>
+                                      {item.label}
+                                    </SidebarMenuBadge>
+                                  )}
+                                </a>
+                              </SidebarMenuButton>
                             ) : (
                               <SidebarMenuButton
                                 asChild
