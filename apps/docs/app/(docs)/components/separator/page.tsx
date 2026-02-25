@@ -1,20 +1,20 @@
 /**
- * VIDI Docs — Badge Component Page
+ * VIDI Docs — Separator Component Page
  * ─────────────────────────────────────────────────────────────
  * Platform-aware docs: switching the tab changes the ENTIRE page
  * content — preview, usage, props — for the selected platform.
- * Route: /components/badge
+ * Route: /components/separator
  */
 
 "use client";
 
 import { Suspense } from "react";
-import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { ComponentPreview } from "@/components/docs/ComponentPreview";
 import { CodeBlock } from "@/components/docs/CodeBlock";
 import { PropsTable } from "@/components/docs/PropsTable";
 import { PlatformTabs } from "@/components/docs/PlatformTabs";
-import { badgeSnippets, badgeProps } from "@/lib/docs/components/badge";
+import { separatorSnippets, separatorProps } from "@/lib/docs/components/separator";
 
 // ── Shared section wrapper ─────────────────────────────────────────────────
 
@@ -45,7 +45,6 @@ function Section({
 function NativeNote({ platform }: { platform: string }) {
   return (
     <div className="flex items-start gap-3 rounded-xl border border-border bg-muted/20 px-4 py-3">
-      <span className="mt-0.5 text-base">📦</span>
       <p className="text-xs text-muted-foreground">
         Live preview is available for web platforms only.
         The specs below are reference implementations for <strong className="text-foreground">{platform}</strong>.
@@ -61,69 +60,55 @@ function ReactContent() {
   return (
     <div className="space-y-10 pt-6">
       <Section title="Installation">
-        <CodeBlock code={badgeSnippets.React.installation} language="ts" platform="React" />
-      </Section>
-
-      <Section title="Preview" description="All 6 badge variants.">
-        <ComponentPreview>
-          <Badge>Default</Badge>
-          <Badge variant="secondary">Secondary</Badge>
-          <Badge variant="outline">Outline</Badge>
-          <Badge variant="ghost">Ghost</Badge>
-          <Badge variant="destructive">Destructive</Badge>
-          <Badge variant="link">Link</Badge>
-        </ComponentPreview>
-        <CodeBlock code={badgeSnippets.React.basic} language="tsx" platform="React" />
+        <CodeBlock code={separatorSnippets.React.installation} language="ts" platform="React" />
       </Section>
 
       <Section
-        title="With Leading Icon"
-        description="Status dots placed before the label for contextual indicators."
+        title="Horizontal (Default)"
+        description="A full-width horizontal line separating content blocks."
       >
         <ComponentPreview>
-          <Badge><span className="mr-1 inline-block size-1.5 rounded-full bg-green-30" />Online</Badge>
-          <Badge variant="outline"><span className="mr-1 inline-block size-1.5 rounded-full bg-yellow-30" />Away</Badge>
-          <Badge variant="outline"><span className="mr-1 inline-block size-1.5 rounded-full bg-red-30" />Critical</Badge>
-          <Badge variant="outline"><span className="mr-1 inline-block size-1.5 rounded-full bg-blue-30" />Info</Badge>
+          <div className="w-full max-w-sm space-y-3">
+            <p className="text-sm text-foreground">Content above the separator</p>
+            <Separator />
+            <p className="text-sm text-foreground">Content below the separator</p>
+          </div>
         </ComponentPreview>
-        <CodeBlock code={badgeSnippets.React.withIcon} language="tsx" platform="React" />
+        <CodeBlock code={separatorSnippets.React.basic} language="tsx" platform="React" />
       </Section>
 
       <Section
-        title="Status Semantics"
-        description="Override badge colors to convey VIDI primitive color meanings."
+        title="Vertical"
+        description="A vertical line separating inline items. The separator stretches to the height of its flex container."
       >
         <ComponentPreview>
-          <Badge className="bg-green-30/15 text-green-30 hover:bg-green-30/20">Online</Badge>
-          <Badge className="bg-yellow-30/15 text-yellow-30 hover:bg-yellow-30/20">Away</Badge>
-          <Badge className="bg-red-30/15 text-red-30 hover:bg-red-30/20">Critical</Badge>
-          <Badge className="bg-blue-30/15 text-blue-30 hover:bg-blue-30/20">Info</Badge>
-          <Badge className="bg-tosca-30/15 text-tosca-30 hover:bg-tosca-30/20">Success</Badge>
+          <div className="flex h-5 items-center space-x-4">
+            <span className="text-sm text-foreground">Blog</span>
+            <Separator orientation="vertical" />
+            <span className="text-sm text-foreground">Docs</span>
+            <Separator orientation="vertical" />
+            <span className="text-sm text-foreground">Source</span>
+          </div>
         </ComponentPreview>
-        <CodeBlock code={badgeSnippets.React.statusSemantics} language="tsx" platform="React" />
+        <CodeBlock code={separatorSnippets.React.vertical} language="tsx" platform="React" />
       </Section>
 
       <Section
-        title="Count Badges"
-        description="Numeric badges for notifications and unread counts."
+        title="With Label"
+        description="Two separators flanking a centered text label, commonly used for 'or' dividers in auth flows."
       >
         <ComponentPreview>
-          <Badge>3</Badge>
-          <Badge variant="destructive">99+</Badge>
-          <Badge variant="outline">12</Badge>
+          <div className="flex w-full max-w-sm items-center gap-4">
+            <Separator className="flex-1" />
+            <span className="text-xs text-muted-foreground">or</span>
+            <Separator className="flex-1" />
+          </div>
         </ComponentPreview>
-        <CodeBlock code={badgeSnippets.React.count} language="tsx" platform="React" />
-      </Section>
-
-      <Section
-        title="As Link"
-        description="Use asChild to render badge styles on a Next.js Link or anchor."
-      >
-        <CodeBlock code={badgeSnippets.React.asChild} language="tsx" platform="React" />
+        <CodeBlock code={separatorSnippets.React.withLabel} language="tsx" platform="React" />
       </Section>
 
       <Section title="Props">
-        <PropsTable props={badgeProps} />
+        <PropsTable props={separatorProps} />
       </Section>
     </div>
   );
@@ -134,22 +119,12 @@ function ReactContent() {
 function TVContent() {
   return (
     <div className="space-y-10 pt-6">
-      <Section
-        title="Installation"
-        description="Same Badge component — use larger text for 10-foot readability."
-      >
-        <CodeBlock code={badgeSnippets.TV.installation} language="ts" platform="TV" filename="TV app import" />
+      <Section title="Installation">
+        <CodeBlock code={separatorSnippets.TV.installation} language="ts" platform="TV" />
       </Section>
 
-      <Section
-        title="Preview"
-        description="TV badges with increased padding and font size for 10-foot UI."
-      >
-        <CodeBlock code={badgeSnippets.TV.basic} language="tsx" platform="TV" />
-      </Section>
-
-      <Section title="Props">
-        <PropsTable props={badgeProps} />
+      <Section title="Basic Usage">
+        <CodeBlock code={separatorSnippets.TV.basic} language="tsx" platform="TV" />
       </Section>
     </div>
   );
@@ -160,19 +135,12 @@ function TVContent() {
 function MobileWebContent() {
   return (
     <div className="space-y-10 pt-6">
-      <Section
-        title="Installation"
-        description="Same Badge component as React — no platform-specific build needed for Mobile Web."
-      >
-        <CodeBlock code={badgeSnippets["Mobile Web"].installation} language="ts" platform="Mobile Web" />
+      <Section title="Installation">
+        <CodeBlock code={separatorSnippets["Mobile Web"].installation} language="ts" platform="Mobile Web" />
       </Section>
 
-      <Section title="Preview" description="Badges as non-interactive indicators and notification counts.">
-        <CodeBlock code={badgeSnippets["Mobile Web"].basic} language="tsx" platform="Mobile Web" />
-      </Section>
-
-      <Section title="Props">
-        <PropsTable props={badgeProps} />
+      <Section title="Basic Usage">
+        <CodeBlock code={separatorSnippets["Mobile Web"].basic} language="tsx" platform="Mobile Web" />
       </Section>
     </div>
   );
@@ -181,8 +149,9 @@ function MobileWebContent() {
 // ── Android platform content ───────────────────────────────────────────────
 
 const androidParams = [
-  { name: "text",    type: "String",       default: "—",              description: "Badge label text" },
-  { name: "variant", type: "BadgeVariant", default: "Default",        description: "Visual style variant" },
+  { name: "orientation", type: "DividerOrientation", default: "Horizontal", description: "Direction of the divider line." },
+  { name: "modifier",    type: "Modifier",           default: "Modifier",   description: "Compose modifier chain." },
+  { name: "color",       type: "Color",              default: "vidi_border", description: "Divider color token." },
 ];
 
 function AndroidContent() {
@@ -191,15 +160,15 @@ function AndroidContent() {
       <NativeNote platform="Android" />
 
       <Section title="Installation">
-        <CodeBlock code={badgeSnippets.Android.installation} language="kotlin" platform="Android" filename="Compose imports" />
+        <CodeBlock code={separatorSnippets.Android.installation} language="kotlin" platform="Android" />
       </Section>
 
       <Section title="Basic Usage">
-        <CodeBlock code={badgeSnippets.Android.basic} language="kotlin" platform="Android" />
+        <CodeBlock code={separatorSnippets.Android.basic} language="kotlin" platform="Android" />
       </Section>
 
       <Section title="Color Tokens">
-        <CodeBlock code={badgeSnippets.Android.colors} language="kotlin" platform="Android" filename="res/values/colors.xml" />
+        <CodeBlock code={separatorSnippets.Android.colors} language="kotlin" platform="Android" filename="res/values/colors.xml" />
       </Section>
 
       <Section title="Params">
@@ -212,8 +181,8 @@ function AndroidContent() {
 // ── iOS platform content ───────────────────────────────────────────────────
 
 const iosParams = [
-  { name: "label",   type: "String",           default: "—",         description: "Badge label text" },
-  { name: "variant", type: "VidiBadgeVariant",  default: ".default",  description: "Visual style variant" },
+  { name: "Divider()", type: "View",  default: "\u2014", description: "SwiftUI built-in divider. Uses system default color unless overridden." },
+  { name: ".overlay()", type: "Color", default: "\u2014", description: "Apply a Color overlay to customise the divider color with VIDI tokens." },
 ];
 
 function IOSContent() {
@@ -222,15 +191,15 @@ function IOSContent() {
       <NativeNote platform="iOS" />
 
       <Section title="Installation">
-        <CodeBlock code={badgeSnippets.iOS.installation} language="swift" platform="iOS" filename="Xcode setup" />
+        <CodeBlock code={separatorSnippets.iOS.installation} language="swift" platform="iOS" />
       </Section>
 
       <Section title="Basic Usage">
-        <CodeBlock code={badgeSnippets.iOS.basic} language="swift" platform="iOS" />
+        <CodeBlock code={separatorSnippets.iOS.basic} language="swift" platform="iOS" />
       </Section>
 
       <Section title="Color Tokens">
-        <CodeBlock code={badgeSnippets.iOS.colors} language="swift" platform="iOS" filename="Colors.swift" />
+        <CodeBlock code={separatorSnippets.iOS.colors} language="swift" platform="iOS" filename="Colors.swift" />
       </Section>
 
       <Section title="Params">
@@ -242,25 +211,24 @@ function IOSContent() {
 
 // ── Page ─────────────────────────────────────────────────────────────────────
 
-export default function BadgePage() {
+export default function SeparatorPage() {
   return (
     <main className="min-h-screen bg-background">
-      <div className="mx-auto max-w-4xl px-6 py-10">
+      <div className="mx-auto max-w-4xl space-y-10 px-6 py-10">
 
         {/* ── Static header ──────────────────────────────────────── */}
         <header className="space-y-2 border-b border-border pb-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             vidikit · components
           </p>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground">Badge</h1>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground">Separator</h1>
           <p className="text-base text-muted-foreground">
-            Compact inline label for status, categories, and counts. Available in 6 variants
-            with color override support.
+            A visual divider for grouping content. Supports horizontal and vertical orientations.
           </p>
         </header>
 
         {/* ── Platform tabs control the ENTIRE page content ──────── */}
-        <Suspense>
+        <Suspense fallback={null}>
           <PlatformTabs
             platforms={["React", "TV", "Mobile Web", "Android", "iOS"]}
             snippets={{

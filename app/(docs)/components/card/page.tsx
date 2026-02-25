@@ -18,7 +18,10 @@ import {
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { MediaCard } from "@/components/vidi/media-card";
 import { Button } from "@/components/design-system";
-import { TrendingUp, Star, Bell, Play, Crown, Check } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  ChartIncreaseIcon, StarIcon, Notification01Icon, PlayIcon, CrownIcon, Tick01Icon,
+} from "@hugeicons/core-free-icons";
 
 // ── Spec data ─────────────────────────────────────────────────────────────────
 
@@ -117,7 +120,7 @@ function CardLandscapeTab() {
               subtitle="VIDI Original · Premiered 2 hours ago"
               timestamp="1:28:04"
               hideBadge
-              topLeftIcon={<Play />}
+              topLeftIcon={<HugeiconsIcon icon={PlayIcon} />}
               progress={72}
             />
           </div>
@@ -183,7 +186,7 @@ function CardLandscapeTab() {
               title="Rewind: Best of 2025"
               subtitle="VIDI Highlights"
               hideBadge
-              topLeftIcon={<Crown className="size-4" />}
+              topLeftIcon={<HugeiconsIcon icon={CrownIcon} className="size-4" />}
               timestamp="2:14:30"
               progress={100}
             />
@@ -221,7 +224,7 @@ function CardPortraitTab() {
                     </span>
                   )}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <Play className="size-8 text-foreground/20" />
+                    <HugeiconsIcon icon={PlayIcon} className="size-8 text-foreground/20" />
                   </div>
                 </div>
                 <CardContent className="p-3">
@@ -248,7 +251,7 @@ function CardPortraitTab() {
               <Card key={item.title} className="w-[120px] overflow-hidden">
                 <div className="relative aspect-[9/16] bg-gradient-to-b from-purple-30/20 via-pink-30/10 to-primary-30/20">
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <Play className="size-6 text-foreground/20" />
+                    <HugeiconsIcon icon={PlayIcon} className="size-6 text-foreground/20" />
                   </div>
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-2">
                     <p className="text-[10px] font-medium text-white">{item.title}</p>
@@ -295,9 +298,9 @@ function CardSubscriptionTab() {
                 <p className="text-3xl font-bold text-foreground">Rp 0</p>
                 <p className="text-xs text-muted-foreground mt-1">Forever free</p>
                 <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-center gap-2"><Check className="size-3.5 text-green-50" /> SD quality streaming</li>
-                  <li className="flex items-center gap-2"><Check className="size-3.5 text-green-50" /> Ad-supported</li>
-                  <li className="flex items-center gap-2"><Check className="size-3.5 text-green-50" /> 1 device</li>
+                  <li className="flex items-center gap-2"><HugeiconsIcon icon={Tick01Icon} className="size-3.5 text-green-50" /> SD quality streaming</li>
+                  <li className="flex items-center gap-2"><HugeiconsIcon icon={Tick01Icon} className="size-3.5 text-green-50" /> Ad-supported</li>
+                  <li className="flex items-center gap-2"><HugeiconsIcon icon={Tick01Icon} className="size-3.5 text-green-50" /> 1 device</li>
                 </ul>
               </CardContent>
               <CardFooter className="border-t border-border/50 pt-4">
@@ -318,10 +321,10 @@ function CardSubscriptionTab() {
                 <p className="text-3xl font-bold text-foreground">Rp 59K</p>
                 <p className="text-xs text-muted-foreground mt-1">per month</p>
                 <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-center gap-2"><Check className="size-3.5 text-green-50" /> Full HD streaming</li>
-                  <li className="flex items-center gap-2"><Check className="size-3.5 text-green-50" /> No ads</li>
-                  <li className="flex items-center gap-2"><Check className="size-3.5 text-green-50" /> 2 devices</li>
-                  <li className="flex items-center gap-2"><Check className="size-3.5 text-green-50" /> Download offline</li>
+                  <li className="flex items-center gap-2"><HugeiconsIcon icon={Tick01Icon} className="size-3.5 text-green-50" /> Full HD streaming</li>
+                  <li className="flex items-center gap-2"><HugeiconsIcon icon={Tick01Icon} className="size-3.5 text-green-50" /> No ads</li>
+                  <li className="flex items-center gap-2"><HugeiconsIcon icon={Tick01Icon} className="size-3.5 text-green-50" /> 2 devices</li>
+                  <li className="flex items-center gap-2"><HugeiconsIcon icon={Tick01Icon} className="size-3.5 text-green-50" /> Download offline</li>
                 </ul>
               </CardContent>
               <CardFooter className="border-t border-border/50 pt-4">
@@ -335,18 +338,18 @@ function CardSubscriptionTab() {
                 <CardTitle>Platinum</CardTitle>
                 <CardDescription>For the whole family</CardDescription>
                 <CardAction>
-                  <Crown className="size-4 text-yellow-50" />
+                  <HugeiconsIcon icon={CrownIcon} className="size-4 text-yellow-50" />
                 </CardAction>
               </CardHeader>
               <CardContent>
                 <p className="text-3xl font-bold text-foreground">Rp 99K</p>
                 <p className="text-xs text-muted-foreground mt-1">per month</p>
                 <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-center gap-2"><Check className="size-3.5 text-green-50" /> 4K Ultra HD</li>
-                  <li className="flex items-center gap-2"><Check className="size-3.5 text-green-50" /> No ads</li>
-                  <li className="flex items-center gap-2"><Check className="size-3.5 text-green-50" /> 5 devices</li>
-                  <li className="flex items-center gap-2"><Check className="size-3.5 text-green-50" /> Download offline</li>
-                  <li className="flex items-center gap-2"><Check className="size-3.5 text-green-50" /> Exclusive content</li>
+                  <li className="flex items-center gap-2"><HugeiconsIcon icon={Tick01Icon} className="size-3.5 text-green-50" /> 4K Ultra HD</li>
+                  <li className="flex items-center gap-2"><HugeiconsIcon icon={Tick01Icon} className="size-3.5 text-green-50" /> No ads</li>
+                  <li className="flex items-center gap-2"><HugeiconsIcon icon={Tick01Icon} className="size-3.5 text-green-50" /> 5 devices</li>
+                  <li className="flex items-center gap-2"><HugeiconsIcon icon={Tick01Icon} className="size-3.5 text-green-50" /> Download offline</li>
+                  <li className="flex items-center gap-2"><HugeiconsIcon icon={Tick01Icon} className="size-3.5 text-green-50" /> Exclusive content</li>
                 </ul>
               </CardContent>
               <CardFooter className="border-t border-border/50 pt-4">
@@ -386,7 +389,7 @@ function CardDashboardTab() {
               <CardTitle>Session Analytics</CardTitle>
               <CardDescription>Daily active users over the last 30 days.</CardDescription>
               <CardAction>
-                <TrendingUp className="size-4 text-muted-foreground" />
+                <HugeiconsIcon icon={ChartIncreaseIcon} className="size-4 text-muted-foreground" />
               </CardAction>
             </CardHeader>
             <CardContent>
@@ -412,7 +415,7 @@ function CardDashboardTab() {
               <CardTitle>Notifications</CardTitle>
               <CardDescription>3 unread</CardDescription>
               <CardAction>
-                <Bell className="size-4 text-red-50" />
+                <HugeiconsIcon icon={Notification01Icon} className="size-4 text-red-50" />
               </CardAction>
             </CardHeader>
             <CardContent>
@@ -431,9 +434,9 @@ function CardDashboardTab() {
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {[
-            { title: "Followers",  value: "48.2K", delta: "+12%",  icon: <Star className="size-4 text-yellow-50" /> },
-            { title: "Engagement", value: "6.8%",  delta: "+0.4%", icon: <TrendingUp className="size-4 text-green-50" /> },
-            { title: "Reach",      value: "2.1M",  delta: "+32%",  icon: <Bell className="size-4 text-blue-50" /> },
+            { title: "Followers",  value: "48.2K", delta: "+12%",  icon: <HugeiconsIcon icon={StarIcon} className="size-4 text-yellow-50" /> },
+            { title: "Engagement", value: "6.8%",  delta: "+0.4%", icon: <HugeiconsIcon icon={ChartIncreaseIcon} className="size-4 text-green-50" /> },
+            { title: "Reach",      value: "2.1M",  delta: "+32%",  icon: <HugeiconsIcon icon={Notification01Icon} className="size-4 text-blue-50" /> },
           ].map((item) => (
             <Card key={item.title} size="sm">
               <CardHeader>

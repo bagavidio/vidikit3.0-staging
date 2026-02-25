@@ -1,20 +1,21 @@
 /**
- * VIDI Docs — Badge Component Page
- * ─────────────────────────────────────────────────────────────
+ * VIDI Docs — Toast Component Page
+ * ---------------------------------------------------------
  * Platform-aware docs: switching the tab changes the ENTIRE page
  * content — preview, usage, props — for the selected platform.
- * Route: /components/badge
+ * Route: /components/toast
  */
 
 "use client";
 
 import { Suspense } from "react";
-import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
+import { Button } from "@vidikit/ui-react";
 import { ComponentPreview } from "@/components/docs/ComponentPreview";
 import { CodeBlock } from "@/components/docs/CodeBlock";
 import { PropsTable } from "@/components/docs/PropsTable";
 import { PlatformTabs } from "@/components/docs/PlatformTabs";
-import { badgeSnippets, badgeProps } from "@/lib/docs/components/badge";
+import { toastSnippets, toastProps } from "@/lib/docs/components/toast";
 
 // ── Shared section wrapper ─────────────────────────────────────────────────
 
@@ -61,69 +62,120 @@ function ReactContent() {
   return (
     <div className="space-y-10 pt-6">
       <Section title="Installation">
-        <CodeBlock code={badgeSnippets.React.installation} language="ts" platform="React" />
-      </Section>
-
-      <Section title="Preview" description="All 6 badge variants.">
-        <ComponentPreview>
-          <Badge>Default</Badge>
-          <Badge variant="secondary">Secondary</Badge>
-          <Badge variant="outline">Outline</Badge>
-          <Badge variant="ghost">Ghost</Badge>
-          <Badge variant="destructive">Destructive</Badge>
-          <Badge variant="link">Link</Badge>
-        </ComponentPreview>
-        <CodeBlock code={badgeSnippets.React.basic} language="tsx" platform="React" />
+        <CodeBlock code={toastSnippets.React.installation} language="ts" platform="React" />
       </Section>
 
       <Section
-        title="With Leading Icon"
-        description="Status dots placed before the label for contextual indicators."
+        title="Basic"
+        description="Trigger a simple toast notification with a single function call."
       >
         <ComponentPreview>
-          <Badge><span className="mr-1 inline-block size-1.5 rounded-full bg-green-30" />Online</Badge>
-          <Badge variant="outline"><span className="mr-1 inline-block size-1.5 rounded-full bg-yellow-30" />Away</Badge>
-          <Badge variant="outline"><span className="mr-1 inline-block size-1.5 rounded-full bg-red-30" />Critical</Badge>
-          <Badge variant="outline"><span className="mr-1 inline-block size-1.5 rounded-full bg-blue-30" />Info</Badge>
+          <Button
+            intent="outline"
+            onClick={() => toast("Event has been created")}
+          >
+            Show Toast
+          </Button>
         </ComponentPreview>
-        <CodeBlock code={badgeSnippets.React.withIcon} language="tsx" platform="React" />
+        <CodeBlock code={toastSnippets.React.basic} language="tsx" platform="React" />
       </Section>
 
       <Section
-        title="Status Semantics"
-        description="Override badge colors to convey VIDI primitive color meanings."
+        title="Types"
+        description="Semantic toast variants for success, error, info, warning, and loading states."
       >
         <ComponentPreview>
-          <Badge className="bg-green-30/15 text-green-30 hover:bg-green-30/20">Online</Badge>
-          <Badge className="bg-yellow-30/15 text-yellow-30 hover:bg-yellow-30/20">Away</Badge>
-          <Badge className="bg-red-30/15 text-red-30 hover:bg-red-30/20">Critical</Badge>
-          <Badge className="bg-blue-30/15 text-blue-30 hover:bg-blue-30/20">Info</Badge>
-          <Badge className="bg-tosca-30/15 text-tosca-30 hover:bg-tosca-30/20">Success</Badge>
+          <div className="flex flex-wrap gap-2">
+            <Button
+              intent="outline"
+              size="sm"
+              onClick={() => toast.success("Changes saved successfully")}
+            >
+              Success
+            </Button>
+            <Button
+              intent="outline"
+              size="sm"
+              onClick={() => toast.error("Something went wrong")}
+            >
+              Error
+            </Button>
+            <Button
+              intent="outline"
+              size="sm"
+              onClick={() => toast.info("New update available")}
+            >
+              Info
+            </Button>
+            <Button
+              intent="outline"
+              size="sm"
+              onClick={() => toast.warning("Your session is about to expire")}
+            >
+              Warning
+            </Button>
+            <Button
+              intent="outline"
+              size="sm"
+              onClick={() => toast.loading("Uploading file...")}
+            >
+              Loading
+            </Button>
+          </div>
         </ComponentPreview>
-        <CodeBlock code={badgeSnippets.React.statusSemantics} language="tsx" platform="React" />
+        <CodeBlock code={toastSnippets.React.types} language="tsx" platform="React" />
       </Section>
 
       <Section
-        title="Count Badges"
-        description="Numeric badges for notifications and unread counts."
+        title="With Action"
+        description="Attach an action button to the toast for undo or follow-up actions."
       >
         <ComponentPreview>
-          <Badge>3</Badge>
-          <Badge variant="destructive">99+</Badge>
-          <Badge variant="outline">12</Badge>
+          <Button
+            intent="outline"
+            onClick={() =>
+              toast("File deleted", {
+                action: {
+                  label: "Undo",
+                  onClick: () => toast.success("File restored"),
+                },
+              })
+            }
+          >
+            Delete File
+          </Button>
         </ComponentPreview>
-        <CodeBlock code={badgeSnippets.React.count} language="tsx" platform="React" />
+        <CodeBlock code={toastSnippets.React.withAction} language="tsx" platform="React" />
       </Section>
 
       <Section
-        title="As Link"
-        description="Use asChild to render badge styles on a Next.js Link or anchor."
+        title="With Description"
+        description="Add a secondary line of text below the main message."
       >
-        <CodeBlock code={badgeSnippets.React.asChild} language="tsx" platform="React" />
+        <ComponentPreview>
+          <Button
+            intent="outline"
+            onClick={() =>
+              toast("Event created", {
+                description: "Monday, January 3rd at 6:00pm",
+              })
+            }
+          >
+            Create Event
+          </Button>
+        </ComponentPreview>
+        <CodeBlock code={toastSnippets.React.withDescription} language="tsx" platform="React" />
+      </Section>
+
+      <Section
+        title="Promise"
+        description="Automatically transitions through loading, success, and error states based on a promise."
+      >
+        <CodeBlock code={toastSnippets.React.promise} language="tsx" platform="React" />
       </Section>
 
       <Section title="Props">
-        <PropsTable props={badgeProps} />
+        <PropsTable props={toastProps} />
       </Section>
     </div>
   );
@@ -136,20 +188,16 @@ function TVContent() {
     <div className="space-y-10 pt-6">
       <Section
         title="Installation"
-        description="Same Badge component — use larger text for 10-foot readability."
+        description="TV apps may use Sonner in web-based TV apps, or prefer inline banners for better readability at distance."
       >
-        <CodeBlock code={badgeSnippets.TV.installation} language="ts" platform="TV" filename="TV app import" />
+        <CodeBlock code={toastSnippets.TV.installation} language="ts" platform="TV" />
       </Section>
 
       <Section
-        title="Preview"
-        description="TV badges with increased padding and font size for 10-foot UI."
+        title="Basic Usage"
+        description="Configure the Toaster with larger text and longer duration for the lean-back experience."
       >
-        <CodeBlock code={badgeSnippets.TV.basic} language="tsx" platform="TV" />
-      </Section>
-
-      <Section title="Props">
-        <PropsTable props={badgeProps} />
+        <CodeBlock code={toastSnippets.TV.basic} language="tsx" platform="TV" />
       </Section>
     </div>
   );
@@ -162,17 +210,16 @@ function MobileWebContent() {
     <div className="space-y-10 pt-6">
       <Section
         title="Installation"
-        description="Same Badge component as React — no platform-specific build needed for Mobile Web."
+        description="Same import as React — no platform-specific build needed for Mobile Web."
       >
-        <CodeBlock code={badgeSnippets["Mobile Web"].installation} language="ts" platform="Mobile Web" />
+        <CodeBlock code={toastSnippets["Mobile Web"].installation} language="ts" platform="Mobile Web" />
       </Section>
 
-      <Section title="Preview" description="Badges as non-interactive indicators and notification counts.">
-        <CodeBlock code={badgeSnippets["Mobile Web"].basic} language="tsx" platform="Mobile Web" />
-      </Section>
-
-      <Section title="Props">
-        <PropsTable props={badgeProps} />
+      <Section
+        title="Basic Usage"
+        description="Position the Toaster so it does not overlap with mobile bottom navigation."
+      >
+        <CodeBlock code={toastSnippets["Mobile Web"].basic} language="tsx" platform="Mobile Web" />
       </Section>
     </div>
   );
@@ -180,30 +227,25 @@ function MobileWebContent() {
 
 // ── Android platform content ───────────────────────────────────────────────
 
-const androidParams = [
-  { name: "text",    type: "String",       default: "—",              description: "Badge label text" },
-  { name: "variant", type: "BadgeVariant", default: "Default",        description: "Visual style variant" },
-];
-
 function AndroidContent() {
   return (
     <div className="space-y-10 pt-6">
       <NativeNote platform="Android" />
 
       <Section title="Installation">
-        <CodeBlock code={badgeSnippets.Android.installation} language="kotlin" platform="Android" filename="Compose imports" />
+        <CodeBlock code={toastSnippets.Android.installation} language="kotlin" platform="Android" filename="Compose imports" />
       </Section>
 
       <Section title="Basic Usage">
-        <CodeBlock code={badgeSnippets.Android.basic} language="kotlin" platform="Android" />
+        <CodeBlock code={toastSnippets.Android.basic} language="kotlin" platform="Android" />
       </Section>
 
       <Section title="Color Tokens">
-        <CodeBlock code={badgeSnippets.Android.colors} language="kotlin" platform="Android" filename="res/values/colors.xml" />
+        <CodeBlock code={toastSnippets.Android.colors} language="kotlin" platform="Android" filename="res/values/colors.xml" />
       </Section>
 
-      <Section title="Params">
-        <PropsTable props={androidParams} />
+      <Section title="Props">
+        <PropsTable props={toastProps} />
       </Section>
     </div>
   );
@@ -211,30 +253,25 @@ function AndroidContent() {
 
 // ── iOS platform content ───────────────────────────────────────────────────
 
-const iosParams = [
-  { name: "label",   type: "String",           default: "—",         description: "Badge label text" },
-  { name: "variant", type: "VidiBadgeVariant",  default: ".default",  description: "Visual style variant" },
-];
-
 function IOSContent() {
   return (
     <div className="space-y-10 pt-6">
       <NativeNote platform="iOS" />
 
       <Section title="Installation">
-        <CodeBlock code={badgeSnippets.iOS.installation} language="swift" platform="iOS" filename="Xcode setup" />
+        <CodeBlock code={toastSnippets.iOS.installation} language="swift" platform="iOS" filename="Xcode setup" />
       </Section>
 
       <Section title="Basic Usage">
-        <CodeBlock code={badgeSnippets.iOS.basic} language="swift" platform="iOS" />
+        <CodeBlock code={toastSnippets.iOS.basic} language="swift" platform="iOS" />
       </Section>
 
       <Section title="Color Tokens">
-        <CodeBlock code={badgeSnippets.iOS.colors} language="swift" platform="iOS" filename="Colors.swift" />
+        <CodeBlock code={toastSnippets.iOS.colors} language="swift" platform="iOS" filename="Colors.swift" />
       </Section>
 
-      <Section title="Params">
-        <PropsTable props={iosParams} />
+      <Section title="Props">
+        <PropsTable props={toastProps} />
       </Section>
     </div>
   );
@@ -242,25 +279,24 @@ function IOSContent() {
 
 // ── Page ─────────────────────────────────────────────────────────────────────
 
-export default function BadgePage() {
+export default function ToastPage() {
   return (
     <main className="min-h-screen bg-background">
-      <div className="mx-auto max-w-4xl px-6 py-10">
+      <div className="mx-auto max-w-4xl space-y-10 px-6 py-10">
 
         {/* ── Static header ──────────────────────────────────────── */}
         <header className="space-y-2 border-b border-border pb-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             vidikit · components
           </p>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground">Badge</h1>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground">Toast</h1>
           <p className="text-base text-muted-foreground">
-            Compact inline label for status, categories, and counts. Available in 6 variants
-            with color override support.
+            Non-intrusive notifications powered by Sonner. Supports success, error, info, warning, loading, and action states.
           </p>
         </header>
 
         {/* ── Platform tabs control the ENTIRE page content ──────── */}
-        <Suspense>
+        <Suspense fallback={null}>
           <PlatformTabs
             platforms={["React", "TV", "Mobile Web", "Android", "iOS"]}
             snippets={{

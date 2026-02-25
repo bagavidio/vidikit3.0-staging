@@ -1,164 +1,300 @@
 /**
  * VIDI Docs — Input Component
+ * ─────────────────────────────────────────────────────────────
+ * Multi-platform documentation with live preview + code tabs.
  * Route: /components/input
  */
 
+"use client";
+
+import { Suspense } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ComponentPreview } from "@/components/docs/ComponentPreview";
+import { CodeBlock } from "@/components/docs/CodeBlock";
+import { PropsTable } from "@/components/docs/PropsTable";
+import { PlatformTabs } from "@/components/docs/PlatformTabs";
+import { inputSnippets, inputProps } from "@/lib/docs/components/input";
+
+// ── Section wrapper ───────────────────────────────────────────────────────────
 
 function Section({
   title,
   description,
   children,
-  grid = false,
 }: {
   title: string;
   description?: string;
   children: React.ReactNode;
-  grid?: boolean;
 }) {
   return (
     <section className="space-y-4">
-      <div className="space-y-0.5">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          {title}
-        </h2>
+      <div className="space-y-1">
+        <h2 className="text-sm font-semibold text-foreground">{title}</h2>
         {description && (
-          <p className="text-sm text-muted-foreground/70">{description}</p>
+          <p className="text-xs text-muted-foreground">{description}</p>
         )}
       </div>
-      <div
-        className={
-          grid
-            ? "grid grid-cols-1 gap-4 sm:grid-cols-2 max-w-2xl"
-            : "flex flex-col gap-4 max-w-sm"
-        }
-      >
-        {children}
-      </div>
+      {children}
     </section>
   );
 }
 
+// ── NativeNote helper ─────────────────────────────────────────────────────────
+
+function NativeNote({ platform }: { platform: string }) {
+  return (
+    <div className="flex items-start gap-3 rounded-xl border border-border bg-muted/20 px-4 py-3">
+      <span className="mt-0.5 text-base">📦</span>
+      <p className="text-xs text-muted-foreground">
+        Live preview is available for web platforms only.
+        The specs below are reference implementations for <strong className="text-foreground">{platform}</strong>.
+        Copy the source files from <code className="font-mono text-foreground">packages/ui-{platform.toLowerCase()}/</code> into your project.
+      </p>
+    </div>
+  );
+}
+
+// ── Platform content ──────────────────────────────────────────────────────────
+
+function ReactContent() {
+  return (
+    <div className="space-y-12">
+      {/* Installation */}
+      <Section title="Installation">
+        <CodeBlock
+          code={inputSnippets.React.installation}
+          language="ts"
+          platform="React"
+        />
+      </Section>
+
+      {/* Preview — Default */}
+      <Section title="Preview — Default" description="Basic text input with placeholder and default value.">
+        <ComponentPreview center={false}>
+          <div className="flex flex-col gap-3 w-full max-w-sm">
+            <Input placeholder="Enter your name" />
+            <Input defaultValue="vidio@example.com" />
+          </div>
+        </ComponentPreview>
+        <CodeBlock
+          code={inputSnippets.React.basic}
+          language="tsx"
+          platform="React"
+        />
+      </Section>
+
+      {/* Input Types */}
+      <Section title="Input Types" description="Native HTML input types for appropriate virtual keyboards and browser behavior.">
+        <ComponentPreview center={false}>
+          <div className="grid grid-cols-2 gap-3 w-full max-w-lg">
+            <Input type="text" placeholder="Full name" />
+            <Input type="email" placeholder="you@example.com" />
+            <Input type="password" placeholder="Password" />
+            <Input type="search" placeholder="Search..." />
+            <Input type="number" placeholder="0" />
+            <Input type="url" placeholder="https://" />
+            <Input type="tel" placeholder="+62" />
+            <Input type="date" />
+          </div>
+        </ComponentPreview>
+        <CodeBlock
+          code={inputSnippets.React.types}
+          language="tsx"
+          platform="React"
+        />
+      </Section>
+
+      {/* File Input */}
+      <Section title="File Input" description="File inputs use a compact internal button style.">
+        <ComponentPreview center={false}>
+          <Input type="file" className="max-w-sm" />
+        </ComponentPreview>
+        <CodeBlock
+          code={inputSnippets.React.file}
+          language="tsx"
+          platform="React"
+        />
+      </Section>
+
+      {/* States */}
+      <Section title="States" description="All interactive states supported out of the box.">
+        <ComponentPreview center={false}>
+          <div className="flex flex-col gap-3 w-full max-w-sm">
+            <Input placeholder="Normal" />
+            <Input placeholder="Disabled" disabled />
+            <Input placeholder="Error" aria-invalid="true" />
+            <Input defaultValue="Read only" readOnly />
+          </div>
+        </ComponentPreview>
+        <CodeBlock
+          code={inputSnippets.React.states}
+          language="tsx"
+          platform="React"
+        />
+      </Section>
+
+      {/* With Label + Helper */}
+      <Section
+        title="With Label + Helper"
+        description="Pair with a Label and helper text for accessible form fields."
+      >
+        <ComponentPreview center={false}>
+          <div className="space-y-2 w-full max-w-sm">
+            <Label htmlFor="inp-email">Email address</Label>
+            <Input id="inp-email" type="email" placeholder="you@example.com" />
+            <p className="text-xs text-muted-foreground">We'll never share your email.</p>
+          </div>
+        </ComponentPreview>
+        <CodeBlock
+          code={inputSnippets.React.withLabel}
+          language="tsx"
+          platform="React"
+        />
+      </Section>
+
+      {/* Props */}
+      <Section title="Props">
+        <PropsTable props={inputProps} />
+      </Section>
+    </div>
+  );
+}
+
+function TVContent() {
+  return (
+    <div className="space-y-8">
+      <Section title="Installation">
+        <CodeBlock
+          code={inputSnippets.TV.installation}
+          language="ts"
+          platform="TV"
+        />
+      </Section>
+      <Section title="Basic Usage" description="Text input triggers on-screen keyboard on TV platforms.">
+        <CodeBlock
+          code={inputSnippets.TV.basic}
+          language="tsx"
+          platform="TV"
+        />
+      </Section>
+    </div>
+  );
+}
+
+function MobileWebContent() {
+  return (
+    <div className="space-y-8">
+      <Section title="Installation">
+        <CodeBlock
+          code={inputSnippets["Mobile Web"].installation}
+          language="ts"
+          platform="Mobile Web"
+        />
+      </Section>
+      <Section title="Basic Usage" description="Use appropriate input types for optimal virtual keyboards.">
+        <CodeBlock
+          code={inputSnippets["Mobile Web"].basic}
+          language="tsx"
+          platform="Mobile Web"
+        />
+      </Section>
+    </div>
+  );
+}
+
+function AndroidContent() {
+  return (
+    <div className="space-y-8">
+      <NativeNote platform="Android" />
+      <Section title="Installation">
+        <CodeBlock
+          code={inputSnippets.Android.installation}
+          language="kotlin"
+          platform="Android"
+        />
+      </Section>
+      <Section title="Basic Usage" description="Compose text field with controlled state.">
+        <CodeBlock
+          code={inputSnippets.Android.basic}
+          language="kotlin"
+          platform="Android"
+        />
+      </Section>
+      <Section title="Color Tokens" description="Token references for input colors.">
+        <CodeBlock
+          code={inputSnippets.Android.colors}
+          language="kotlin"
+          platform="Android"
+        />
+      </Section>
+      <Section title="Props">
+        <PropsTable props={inputProps} />
+      </Section>
+    </div>
+  );
+}
+
+function IOSContent() {
+  return (
+    <div className="space-y-8">
+      <NativeNote platform="iOS" />
+      <Section title="Installation">
+        <CodeBlock
+          code={inputSnippets.iOS.installation}
+          language="swift"
+          platform="iOS"
+        />
+      </Section>
+      <Section title="Basic Usage" description="SwiftUI text field with VidiTextField wrapper.">
+        <CodeBlock
+          code={inputSnippets.iOS.basic}
+          language="swift"
+          platform="iOS"
+        />
+      </Section>
+      <Section title="Color Tokens" description="Token references for input colors.">
+        <CodeBlock
+          code={inputSnippets.iOS.colors}
+          language="swift"
+          platform="iOS"
+        />
+      </Section>
+      <Section title="Props">
+        <PropsTable props={inputProps} />
+      </Section>
+    </div>
+  );
+}
+
+// ── Page ─────────────────────────────────────────────────────────────────────
+
 export default function InputPage() {
   return (
-    <main className="min-h-screen bg-background p-10">
-      <header className="mb-12 space-y-1">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          vidikit · components
-        </p>
-        <h1 className="text-4xl font-bold tracking-tight text-foreground">Input</h1>
-        <p className="text-muted-foreground">
-          Single-line text field with pill shape, focus ring, and full state support.
-        </p>
-      </header>
+    <main className="min-h-screen bg-background">
+      <div className="mx-auto max-w-4xl px-6 py-10">
+        <header className="space-y-2 border-b border-border pb-8">
+          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            vidikit · components
+          </p>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground">Input</h1>
+          <p className="text-base text-muted-foreground">
+            A single-line text field supporting multiple types, validation states, and labels. Available across all VIDI platforms.
+          </p>
+        </header>
 
-      <div className="max-w-4xl space-y-12">
-
-        {/* ── Default ── */}
-        <Section title="Default">
-          <Input placeholder="Placeholder text…" />
-          <Input defaultValue="With a default value" />
-        </Section>
-
-        {/* ── Types ── */}
-        <Section title="Input Types" description="Native HTML input types." grid>
-          <div className="space-y-1.5">
-            <Label htmlFor="ex-text">Text</Label>
-            <Input id="ex-text" type="text" placeholder="Enter text…" />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="ex-email">Email</Label>
-            <Input id="ex-email" type="email" placeholder="you@example.com" />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="ex-password">Password</Label>
-            <Input id="ex-password" type="password" placeholder="••••••••" />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="ex-search">Search</Label>
-            <Input id="ex-search" type="search" placeholder="Search…" />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="ex-number">Number</Label>
-            <Input id="ex-number" type="number" placeholder="0" />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="ex-url">URL</Label>
-            <Input id="ex-url" type="url" placeholder="https://" />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="ex-tel">Phone</Label>
-            <Input id="ex-tel" type="tel" placeholder="+62 8xx xxxx xxxx" />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="ex-date">Date</Label>
-            <Input id="ex-date" type="date" />
-          </div>
-        </Section>
-
-        {/* ── File ── */}
-        <Section title="File Input" description="File inputs use a compact internal button style.">
-          <Input type="file" />
-        </Section>
-
-        {/* ── States ── */}
-        <Section title="States" description="All interactive states supported out of the box.">
-          <div className="space-y-1.5">
-            <Label htmlFor="state-normal">Normal</Label>
-            <Input id="state-normal" placeholder="Normal state" />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="state-disabled" className="opacity-50">Disabled</Label>
-            <Input id="state-disabled" placeholder="Cannot edit" disabled />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="state-invalid" className="text-destructive">
-              Error — Required field
-            </Label>
-            <Input
-              id="state-invalid"
-              placeholder="Missing value"
-              aria-invalid="true"
-              defaultValue=""
-            />
-            <p className="text-xs text-destructive">This field is required.</p>
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="state-readonly">Read-only</Label>
-            <Input id="state-readonly" readOnly defaultValue="Cannot be changed" />
-          </div>
-        </Section>
-
-        {/* ── With Label ── */}
-        <Section title="With Label + Helper Text" description="Pair with Label and helper text for accessible form fields.">
-          <div className="space-y-1.5">
-            <Label htmlFor="ex-username">Username</Label>
-            <Input id="ex-username" placeholder="e.g. johndoe" />
-            <p className="text-xs text-muted-foreground">
-              Must be 3–20 characters. Letters, numbers, and underscores only.
-            </p>
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="ex-bio">Bio</Label>
-            <Input id="ex-bio" placeholder="Tell us about yourself…" />
-          </div>
-        </Section>
-
-        {/* ── Guideline ── */}
-        <section className="rounded-xl border border-border bg-muted/20 p-6 space-y-3">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Usage Guidelines
-          </h2>
-          <ul className="space-y-1.5 text-sm text-muted-foreground list-disc list-inside">
-            <li>Always associate inputs with a <code className="font-mono text-xs bg-muted px-1 rounded">Label</code> using matching <code className="font-mono text-xs bg-muted px-1 rounded">htmlFor</code> / <code className="font-mono text-xs bg-muted px-1 rounded">id</code>.</li>
-            <li>Set <code className="font-mono text-xs bg-muted px-1 rounded">aria-invalid=&quot;true&quot;</code> on validation errors — the red ring applies automatically.</li>
-            <li>Use <strong>placeholder</strong> only for hints about format, not as a label substitute.</li>
-            <li>For compound inputs (icon, button, prefix), use <strong>Input Group</strong> instead.</li>
-            <li>Prefer <code className="font-mono text-xs bg-muted px-1 rounded">type=&quot;email&quot;</code> / <code className="font-mono text-xs bg-muted px-1 rounded">type=&quot;tel&quot;</code> for correct mobile keyboards.</li>
-          </ul>
-        </section>
-
+        <Suspense>
+          <PlatformTabs
+            platforms={["React", "TV", "Mobile Web", "Android", "iOS"]}
+            snippets={{
+              React: <ReactContent />,
+              TV: <TVContent />,
+              "Mobile Web": <MobileWebContent />,
+              Android: <AndroidContent />,
+              iOS: <IOSContent />,
+            }}
+          />
+        </Suspense>
       </div>
     </main>
   );

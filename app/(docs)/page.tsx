@@ -16,9 +16,11 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { Grid3X3, Ruler, Code2, ArrowRight, MessageSquare } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Layers01Icon, Shield01Icon, SparklesIcon, ChartIncreaseIcon } from "@hugeicons/core-free-icons";
+import {
+  Layers01Icon, Shield01Icon, SparklesIcon, ChartIncreaseIcon,
+  GridIcon, RulerIcon, SourceCodeIcon, ArrowRight01Icon, MessageMultiple01Icon,
+} from "@hugeicons/core-free-icons";
 import { Button } from "@/components/design-system";
 import { docsLinks } from "@/config/docs";
 
@@ -48,19 +50,19 @@ const shortcuts: ShortcutCard[] = [
     href: "/foundations/colors",
   },
   {
-    icon: <Grid3X3 className="size-5" />,
+    icon: <HugeiconsIcon icon={GridIcon} className="size-5" />,
     title: "Components",
     description: "UI components built with shadcn/ui, CVA variants, and VIDI design tokens.",
     href: "/components/button",
   },
   {
-    icon: <Ruler className="size-5" />,
+    icon: <HugeiconsIcon icon={RulerIcon} className="size-5" />,
     title: "Tokens",
     description: "Design tokens for breakpoints, aspect ratios, and cross-platform consistency.",
     href: "/tokens/ratio",
   },
   {
-    icon: <Code2 className="size-5" />,
+    icon: <HugeiconsIcon icon={SourceCodeIcon} className="size-5" />,
     title: "Source Code",
     description: "Browse the GitHub repository, contribute, and explore the full codebase.",
     href: docsLinks.github,
@@ -263,7 +265,7 @@ export default function HomePage() {
                   <div className="flex size-8 items-center justify-center rounded-lg bg-red-50/10">
                     <span className="text-red-50">{card.icon}</span>
                   </div>
-                  <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+                  <HugeiconsIcon icon={ArrowRight01Icon} className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
                 </div>
                 <div className="space-y-1.5">
                   <p className="text-sm font-semibold text-foreground">{card.title}</p>
@@ -354,7 +356,7 @@ export default function HomePage() {
             className="group flex items-center gap-4 rounded-xl border border-border bg-card p-5 transition-colors hover:border-red-50/40 hover:bg-card/80"
           >
             <div className="flex size-10 items-center justify-center rounded-lg bg-red-50/10">
-              <MessageSquare className="size-5 text-red-50" />
+              <HugeiconsIcon icon={MessageMultiple01Icon} className="size-5 text-red-50" />
             </div>
             <div className="flex-1 space-y-1">
               <p className="text-sm font-semibold text-foreground">Google Chat</p>
@@ -362,7 +364,7 @@ export default function HomePage() {
                 Have questions or feedback? Reach out to the design system team for improvements and collaboration.
               </p>
             </div>
-            <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+            <HugeiconsIcon icon={ArrowRight01Icon} className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
           </a>
         </motion.div>
       </section>

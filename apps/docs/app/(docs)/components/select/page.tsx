@@ -1,0 +1,320 @@
+/**
+ * VIDI Docs — Select Component Page
+ * ─────────────────────────────────────────────────────────────
+ * Platform-aware docs: switching the tab changes the ENTIRE page
+ * content — preview, usage, props — for the selected platform.
+ * Route: /components/select
+ */
+
+"use client";
+
+import { Suspense } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ComponentPreview } from "@/components/docs/ComponentPreview";
+import { CodeBlock } from "@/components/docs/CodeBlock";
+import { PropsTable } from "@/components/docs/PropsTable";
+import { PlatformTabs } from "@/components/docs/PlatformTabs";
+import {
+  selectSnippets,
+  selectProps,
+} from "@/lib/docs/components/select";
+
+// ── Shared section wrapper ─────────────────────────────────────────────────
+
+function Section({
+  title,
+  description,
+  children,
+}: {
+  title: string;
+  description?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="space-y-4">
+      <div className="space-y-1">
+        <h2 className="text-sm font-semibold text-foreground">{title}</h2>
+        {description && (
+          <p className="text-xs text-muted-foreground">{description}</p>
+        )}
+      </div>
+      {children}
+    </section>
+  );
+}
+
+// ── Native platform notice (no live preview) ───────────────────────────────
+
+function NativeNote({ platform }: { platform: string }) {
+  return (
+    <div className="flex items-start gap-3 rounded-xl border border-border bg-muted/20 px-4 py-3">
+      <span className="mt-0.5 text-base">📦</span>
+      <p className="text-xs text-muted-foreground">
+        Live preview is available for web platforms only.
+        The specs below are reference implementations for <strong className="text-foreground">{platform}</strong>.
+        Copy the source files from <code className="font-mono text-foreground">packages/ui-{platform.toLowerCase()}/</code> into your project.
+      </p>
+    </div>
+  );
+}
+
+// ── React platform content ─────────────────────────────────────────────────
+
+function ReactContent() {
+  return (
+    <div className="space-y-10 pt-6">
+      <Section title="Installation">
+        <CodeBlock code={selectSnippets.React.installation} language="ts" platform="React" />
+      </Section>
+
+      <Section
+        title="Basic"
+        description="Simple select with a placeholder and a flat list of items."
+      >
+        <ComponentPreview>
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Select a fruit..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+              <SelectItem value="grape">Grape</SelectItem>
+              <SelectItem value="orange">Orange</SelectItem>
+              <SelectItem value="strawberry">Strawberry</SelectItem>
+            </SelectContent>
+          </Select>
+        </ComponentPreview>
+        <CodeBlock code={selectSnippets.React.basic} language="tsx" platform="React" />
+      </Section>
+
+      <Section
+        title="With Groups"
+        description="Group related items under a SelectLabel header with a separator."
+      >
+        <ComponentPreview>
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Select food..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Fruits</SelectLabel>
+                <SelectItem value="apple">Apple</SelectItem>
+                <SelectItem value="banana">Banana</SelectItem>
+                <SelectItem value="grape">Grape</SelectItem>
+              </SelectGroup>
+              <SelectSeparator />
+              <SelectGroup>
+                <SelectLabel>Vegetables</SelectLabel>
+                <SelectItem value="carrot">Carrot</SelectItem>
+                <SelectItem value="broccoli">Broccoli</SelectItem>
+                <SelectItem value="spinach">Spinach</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </ComponentPreview>
+        <CodeBlock code={selectSnippets.React.groups} language="tsx" platform="React" />
+      </Section>
+
+      <Section
+        title="Sizes"
+        description="SelectTrigger supports default (h-9) and sm (h-8) sizes."
+      >
+        <ComponentPreview>
+          <div className="flex items-center gap-4">
+            <Select>
+              <SelectTrigger size="default">
+                <SelectValue placeholder="Default size" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="apple">Apple</SelectItem>
+                <SelectItem value="banana">Banana</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select>
+              <SelectTrigger size="sm">
+                <SelectValue placeholder="Small size" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="apple">Apple</SelectItem>
+                <SelectItem value="banana">Banana</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </ComponentPreview>
+        <CodeBlock code={selectSnippets.React.sizes} language="tsx" platform="React" />
+      </Section>
+
+      <Section
+        title="States"
+        description="Disabled select prevents user interaction."
+      >
+        <ComponentPreview>
+          <Select disabled>
+            <SelectTrigger>
+              <SelectValue placeholder="Disabled..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="apple">Apple</SelectItem>
+            </SelectContent>
+          </Select>
+        </ComponentPreview>
+        <CodeBlock code={selectSnippets.React.states} language="tsx" platform="React" />
+      </Section>
+
+      <Section
+        title="In Form"
+        description="Pair the select with a Label for accessible form usage."
+      >
+        <CodeBlock code={selectSnippets.React.form} language="tsx" platform="React" />
+      </Section>
+
+      <Section title="Props">
+        <PropsTable props={selectProps} />
+      </Section>
+    </div>
+  );
+}
+
+// ── TV platform content ────────────────────────────────────────────────────
+
+function TVContent() {
+  return (
+    <div className="space-y-10 pt-6">
+      <Section
+        title="Installation"
+        description="TV apps typically use a focus-managed picker or dialog instead of a pointer-based select."
+      >
+        <CodeBlock code={selectSnippets.TV.installation} language="ts" platform="TV" />
+      </Section>
+
+      <Section
+        title="Basic Usage"
+        description="Recommended TV alternative pattern using D-pad navigable picker."
+      >
+        <CodeBlock code={selectSnippets.TV.basic} language="tsx" platform="TV" />
+      </Section>
+    </div>
+  );
+}
+
+// ── Mobile Web platform content ────────────────────────────────────────────
+
+function MobileWebContent() {
+  return (
+    <div className="space-y-10 pt-6">
+      <Section
+        title="Installation"
+        description="Same import as React — no platform-specific build needed for Mobile Web."
+      >
+        <CodeBlock code={selectSnippets["Mobile Web"].installation} language="ts" platform="Mobile Web" />
+      </Section>
+
+      <Section
+        title="Basic Usage"
+        description="Custom select works well for short lists. For very long option lists, consider a Sheet or native select."
+      >
+        <CodeBlock code={selectSnippets["Mobile Web"].basic} language="tsx" platform="Mobile Web" />
+      </Section>
+    </div>
+  );
+}
+
+// ── Android platform content ───────────────────────────────────────────────
+
+function AndroidContent() {
+  return (
+    <div className="space-y-10 pt-6">
+      <NativeNote platform="Android" />
+
+      <Section title="Installation">
+        <CodeBlock code={selectSnippets.Android.installation} language="kotlin" platform="Android" filename="Compose imports" />
+      </Section>
+
+      <Section title="Basic Usage">
+        <CodeBlock code={selectSnippets.Android.basic} language="kotlin" platform="Android" />
+      </Section>
+
+      <Section title="Color Tokens">
+        <CodeBlock code={selectSnippets.Android.colors} language="kotlin" platform="Android" filename="res/values/colors.xml" />
+      </Section>
+
+      <Section title="Props">
+        <PropsTable props={selectProps} />
+      </Section>
+    </div>
+  );
+}
+
+// ── iOS platform content ───────────────────────────────────────────────────
+
+function IOSContent() {
+  return (
+    <div className="space-y-10 pt-6">
+      <NativeNote platform="iOS" />
+
+      <Section title="Installation">
+        <CodeBlock code={selectSnippets.iOS.installation} language="swift" platform="iOS" filename="Xcode setup" />
+      </Section>
+
+      <Section title="Basic Usage">
+        <CodeBlock code={selectSnippets.iOS.basic} language="swift" platform="iOS" />
+      </Section>
+
+      <Section title="Color Tokens">
+        <CodeBlock code={selectSnippets.iOS.colors} language="swift" platform="iOS" filename="Colors.swift" />
+      </Section>
+
+      <Section title="Props">
+        <PropsTable props={selectProps} />
+      </Section>
+    </div>
+  );
+}
+
+// ── Page ─────────────────────────────────────────────────────────────────────
+
+export default function SelectPage() {
+  return (
+    <main className="min-h-screen bg-background">
+      <div className="mx-auto max-w-4xl space-y-10 px-6 py-10">
+
+        {/* ── Static header ──────────────────────────────────────── */}
+        <header className="space-y-2 border-b border-border pb-8">
+          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            vidikit · components
+          </p>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground">Select</h1>
+          <p className="text-base text-muted-foreground">
+            A dropdown for selecting a single value from a list of options.
+          </p>
+        </header>
+
+        {/* ── Platform tabs control the ENTIRE page content ──────── */}
+        <Suspense fallback={null}>
+          <PlatformTabs
+            platforms={["React", "TV", "Mobile Web", "Android", "iOS"]}
+            snippets={{
+              React:        <ReactContent />,
+              TV:           <TVContent />,
+              "Mobile Web": <MobileWebContent />,
+              Android:      <AndroidContent />,
+              iOS:          <IOSContent />,
+            }}
+          />
+        </Suspense>
+
+      </div>
+    </main>
+  );
+}

@@ -51,6 +51,14 @@ const RATIO_TOKENS: RatioToken[] = [
     category:    "standard",
     description: "Profile pictures, album art, avatar containers",
   },
+  {
+    name:        "Circle",
+    token:       "--aspect-circle",
+    tailwind:    "aspect-circle",
+    w: 1, h: 1,
+    category:    "standard",
+    description: "Circular containers — avatars, status indicators. Pair with rounded-full overflow-hidden",
+  },
   // VIDI Brand
   {
     name:        "Headline Mobile",
@@ -98,18 +106,22 @@ const RATIO_TOKENS: RatioToken[] = [
 
 function RatioCard({ token }: { token: RatioToken }) {
   const ratio = token.w / token.h;
-  // Constrain the visual preview: max-width 260px, derive height from ratio
+  // Constrain the visual preview: max-width 200px, derive height from ratio
   const previewW = 200;
   const previewH = Math.round(previewW / ratio);
   const clampedH = Math.min(Math.max(previewH, 32), 160);
   const displayW = Math.round(clampedH * ratio);
+
+  const isCircle = token.name === "Circle";
 
   return (
     <div className="rounded-xl border border-border bg-card/60 p-5 space-y-4">
       {/* Ratio preview */}
       <div className="flex items-center justify-center py-2">
         <div
-          className="rounded border border-red-50/30 bg-red-50/10 relative flex items-center justify-center"
+          className={`border border-red-50/30 bg-red-50/10 relative flex items-center justify-center ${
+            isCircle ? "rounded-full" : "rounded"
+          }`}
           style={{ width: `${Math.min(displayW, 200)}px`, height: `${clampedH}px` }}
         >
           <span className="font-mono text-[9px] text-red-50/60 absolute bottom-1 right-1.5">
@@ -129,6 +141,11 @@ function RatioCard({ token }: { token: RatioToken }) {
           )}
         </div>
         <code className="block font-mono text-[10px] text-muted-foreground">{token.tailwind}</code>
+        {token.category === "brand" && (
+          <p className="font-mono text-[10px] text-muted-foreground/60">
+            {token.w} × {token.h} px
+          </p>
+        )}
         <p className="text-[10px] leading-relaxed text-muted-foreground/80">{token.description}</p>
       </div>
     </div>
@@ -152,9 +169,14 @@ export default function RatioPage() {
           </p>
           <h1 className="text-4xl font-bold tracking-tight text-foreground">Aspect Ratios</h1>
           <p className="text-muted-foreground">
-            4 standard + 5 VIDI brand content-type ratios — Tailwind utilities via{" "}
+            5 standard + 5 VIDI brand content-type ratios — Tailwind utilities via{" "}
             <code className="rounded bg-muted px-1 font-mono text-xs">@theme inline</code>
           </p>
+          <div className="flex flex-wrap gap-2 pt-1">
+            {["@theme inline", "globals.css", "aspect-*", "Brand Formats"].map((t) => (
+              <span key={t} className="rounded-full border border-border bg-muted/50 px-2.5 py-1 font-mono text-[10px] text-muted-foreground">{t}</span>
+            ))}
+          </div>
         </header>
 
         {/* Policy callout */}
@@ -175,7 +197,7 @@ export default function RatioPage() {
           <h2 className="px-1 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             Standard Ratios
           </h2>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             {standard.map((token) => (
               <RatioCard key={token.name} token={token} />
             ))}
@@ -226,7 +248,12 @@ export default function RatioPage() {
                       <code className="font-mono text-xs font-semibold text-foreground">{token.tailwind}</code>
                     </td>
                     <td className="px-4 py-3">
-                      <code className="font-mono text-xs text-muted-foreground">{token.w}/{token.h}</code>
+                      <code className="font-mono text-xs text-muted-foreground">
+                        {token.w}/{token.h}
+                        {token.category === "brand" && (
+                          <span className="text-muted-foreground/50"> ({token.w}×{token.h}px)</span>
+                        )}
+                      </code>
                     </td>
                     <td className="px-4 py-3 text-xs text-muted-foreground">{token.description}</td>
                   </tr>
@@ -256,8 +283,16 @@ export default function RatioPage() {
                 code: `<div className="aspect-breaking-mobile md:aspect-breaking-desktop\n     w-full overflow-hidden rounded-lg">\n  <img ... />\n</div>`,
               },
               {
+                label: "Circular avatar",
+                code: `<div className="aspect-circle w-12 overflow-hidden rounded-full">\n  <img src={avatar} className="size-full object-cover" />\n</div>`,
+              },
+              {
                 label: "Content card thumbnail",
                 code: `<div className="aspect-landscape sm:aspect-thumb-portrait\n     overflow-hidden rounded-xl">\n  <img ... className="size-full object-cover" />\n</div>`,
+              },
+              {
+                label: "Responsive headline",
+                code: `<div className="aspect-headline-mobile md:aspect-headline-desktop\n     w-full overflow-hidden rounded-xl">\n  <img src={hero} className="size-full object-cover" />\n</div>`,
               },
             ].map(({ label, code }) => (
               <div key={label} className="rounded-xl border border-border bg-card/40 p-4 space-y-2">
@@ -283,6 +318,7 @@ export default function RatioPage() {
   --aspect-portrait:          9 / 16;
   --aspect-thumb-portrait:    2 / 3;
   --aspect-square:            1 / 1;
+  --aspect-circle:            1 / 1;
 
   /* VIDI Brand Content Formats */
   --aspect-headline-mobile:   333 / 187;   /* 333×187 */
@@ -293,6 +329,21 @@ export default function RatioPage() {
 }`}
             </pre>
           </div>
+        </section>
+
+        {/* Usage Guidelines */}
+        <section className="space-y-3">
+          <h2 className="px-1 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            Guidelines
+          </h2>
+          <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
+            <li>Always use token classes (<code className="rounded bg-muted px-1 font-mono text-xs text-foreground">aspect-landscape</code>) instead of hardcoded <code className="rounded bg-muted px-1 font-mono text-xs text-foreground">aspect-ratio</code> values.</li>
+            <li>Use <code className="rounded bg-muted px-1 font-mono text-xs text-foreground">aspect-circle</code> with <code className="rounded bg-muted px-1 font-mono text-xs text-foreground">rounded-full overflow-hidden</code> for circular avatar containers.</li>
+            <li>Brand ratios match exact pixel canvas sizes from the Design team — do not alter them.</li>
+            <li>For responsive layouts, combine mobile and desktop brand tokens: <code className="rounded bg-muted px-1 font-mono text-xs text-foreground">aspect-headline-mobile md:aspect-headline-desktop</code>.</li>
+            <li>Control width externally via the parent container — the aspect token only constrains the height-to-width relationship.</li>
+            <li>Children of aspect containers should use <code className="rounded bg-muted px-1 font-mono text-xs text-foreground">size-full object-cover</code> to fill the space.</li>
+          </ul>
         </section>
 
       </div>

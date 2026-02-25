@@ -49,6 +49,7 @@
   --aspect-portrait:          9 / 16;
   --aspect-thumb-portrait:    2 / 3;
   --aspect-square:            1 / 1;
+  --aspect-circle:            1 / 1;
   /* VIDI Brand Content Formats */
   --aspect-headline-mobile:   333 / 187;
   --aspect-headline-desktop:  1000 / 322;

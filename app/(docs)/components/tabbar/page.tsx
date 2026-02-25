@@ -6,7 +6,8 @@
 "use client";
 
 import * as React from "react";
-import { Home, Search, Library, User, Bell } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Home01Icon, Search01Icon, BookOpen01Icon, User02Icon, Notification01Icon } from "@hugeicons/core-free-icons";
 import { Tabbar, type TabbarItem } from "@/components/vidi/tabbar";
 
 const SPEC = [
@@ -23,18 +24,18 @@ const ITEM_SPEC = [
 ];
 
 const demoItems: TabbarItem[] = [
-  { label: "Home",    href: "/",                   icon: <Home /> },
-  { label: "Search",  href: "/components/command",  icon: <Search /> },
-  { label: "Library", href: "/components/button",   icon: <Library />, notify: true },
-  { label: "Profile", href: "/components/avatar",   icon: <User /> },
+  { label: "Home",    href: "/",                   icon: <HugeiconsIcon icon={Home01Icon} /> },
+  { label: "Search",  href: "/components/command",  icon: <HugeiconsIcon icon={Search01Icon} /> },
+  { label: "Library", href: "/components/button",   icon: <HugeiconsIcon icon={BookOpen01Icon} />, notify: true },
+  { label: "Profile", href: "/components/avatar",   icon: <HugeiconsIcon icon={User02Icon} /> },
 ];
 
 const fiveItems: TabbarItem[] = [
-  { label: "Home",    href: "/",                   icon: <Home /> },
-  { label: "Search",  href: "/components/command",  icon: <Search /> },
-  { label: "Library", href: "/components/button",   icon: <Library /> },
-  { label: "Alerts",  href: "/components/toast",    icon: <Bell />, notify: true },
-  { label: "Profile", href: "/components/avatar",   icon: <User /> },
+  { label: "Home",    href: "/",                   icon: <HugeiconsIcon icon={Home01Icon} /> },
+  { label: "Search",  href: "/components/command",  icon: <HugeiconsIcon icon={Search01Icon} /> },
+  { label: "Library", href: "/components/button",   icon: <HugeiconsIcon icon={BookOpen01Icon} /> },
+  { label: "Alerts",  href: "/components/toast",    icon: <HugeiconsIcon icon={Notification01Icon} />, notify: true },
+  { label: "Profile", href: "/components/avatar",   icon: <HugeiconsIcon icon={User02Icon} /> },
 ];
 
 export default function TabbarPage() {
@@ -165,9 +166,9 @@ Set notify: true on a TabbarItem to show the dot.`}</pre>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Web (React)</p>
               <pre className="overflow-x-auto rounded-lg bg-muted/40 px-3 py-2.5 font-mono text-xs text-foreground/80">{`<Tabbar items={[
   { label: "Home", href: "/",
-    icon: <Home />, notify: false },
+    icon: <HugeiconsIcon icon={Home01Icon} />, notify: false },
   { label: "Library", href: "/lib",
-    icon: <Library />, notify: true },
+    icon: <HugeiconsIcon icon={BookOpen01Icon} />, notify: true },
 ]} />`}</pre>
             </div>
             <div className="space-y-1.5">
@@ -201,13 +202,14 @@ Set notify: true on a TabbarItem to show the dot.`}</pre>
           <div className="overflow-hidden rounded-xl border border-border bg-muted/20">
             <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-foreground/80">
 {`import { Tabbar, type TabbarItem } from "@/components/vidi/tabbar";
-import { Home, Search, Library, User } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Home01Icon, Search01Icon, BookOpen01Icon, User02Icon } from "@hugeicons/core-free-icons";
 
 const items: TabbarItem[] = [
-  { label: "Home",    href: "/",          icon: <Home /> },
-  { label: "Search",  href: "/search",    icon: <Search /> },
-  { label: "Library", href: "/library",   icon: <Library />, notify: true },
-  { label: "Profile", href: "/profile",   icon: <User /> },
+  { label: "Home",    href: "/",          icon: <HugeiconsIcon icon={Home01Icon} /> },
+  { label: "Search",  href: "/search",    icon: <HugeiconsIcon icon={Search01Icon} /> },
+  { label: "Library", href: "/library",   icon: <HugeiconsIcon icon={BookOpen01Icon} />, notify: true },
+  { label: "Profile", href: "/profile",   icon: <HugeiconsIcon icon={User02Icon} /> },
 ];
 
 // In your layout (visible on mobile, hidden on lg+):

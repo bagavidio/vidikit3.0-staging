@@ -1,8 +1,14 @@
 /**
- * VIDI Docs — Dropdown Menu Component
+ * VIDI Docs — Dropdown Menu Component Page
+ * ─────────────────────────────────────────────────────────────
+ * Platform-aware docs: switching the tab changes the ENTIRE page
+ * content — preview, usage, props — for the selected platform.
  * Route: /components/dropdown-menu
  */
 
+"use client";
+
+import { Suspense } from "react";
 import { Button } from "@vidikit/ui-react";
 import {
   DropdownMenu,
@@ -20,6 +26,16 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ComponentPreview } from "@/components/docs/ComponentPreview";
+import { CodeBlock } from "@/components/docs/CodeBlock";
+import { PropsTable } from "@/components/docs/PropsTable";
+import { PlatformTabs } from "@/components/docs/PlatformTabs";
+import {
+  dropdownMenuSnippets,
+  dropdownMenuProps,
+} from "@/lib/docs/components/dropdown-menu";
+
+// ── Shared section wrapper ─────────────────────────────────────────────────
 
 function Section({
   title,
@@ -32,39 +48,46 @@ function Section({
 }) {
   return (
     <section className="space-y-4">
-      <div className="space-y-0.5">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          {title}
-        </h2>
+      <div className="space-y-1">
+        <h2 className="text-sm font-semibold text-foreground">{title}</h2>
         {description && (
-          <p className="text-sm text-muted-foreground/70">{description}</p>
+          <p className="text-xs text-muted-foreground">{description}</p>
         )}
       </div>
-      <div className="flex flex-wrap items-start gap-4">{children}</div>
+      {children}
     </section>
   );
 }
 
-export default function DropdownMenuPage() {
+// ── Native platform notice (no live preview) ───────────────────────────────
+
+function NativeNote({ platform }: { platform: string }) {
   return (
-    <main className="min-h-screen bg-background p-10">
-      <header className="mb-12 space-y-1">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          vidikit · components
-        </p>
-        <h1 className="text-4xl font-bold tracking-tight text-foreground">Dropdown Menu</h1>
-        <p className="text-muted-foreground">
-          Contextual menu with items, groups, labels, shortcuts, checkboxes, radio items, and submenus.
-        </p>
-      </header>
+    <div className="flex items-start gap-3 rounded-xl border border-border bg-muted/20 px-4 py-3">
+      <span className="mt-0.5 text-base">📦</span>
+      <p className="text-xs text-muted-foreground">
+        Live preview is available for web platforms only.
+        The specs below are reference implementations for <strong className="text-foreground">{platform}</strong>.
+        Copy the source files from <code className="font-mono text-foreground">packages/ui-{platform.toLowerCase()}/</code> into your project.
+      </p>
+    </div>
+  );
+}
 
-      <div className="max-w-4xl space-y-12">
+// ── React platform content ─────────────────────────────────────────────────
 
-        {/* ── Basic ── */}
-        <Section
-          title="Basic"
-          description="Simple dropdown with icon shortcuts and a destructive action."
-        >
+function ReactContent() {
+  return (
+    <div className="space-y-10 pt-6">
+      <Section title="Installation">
+        <CodeBlock code={dropdownMenuSnippets.React.installation} language="ts" platform="React" />
+      </Section>
+
+      <Section
+        title="Basic"
+        description="Simple dropdown with icon shortcuts and a destructive action."
+      >
+        <ComponentPreview>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button intent="outline">Open Menu</Button>
@@ -89,13 +112,15 @@ export default function DropdownMenuPage() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </Section>
+        </ComponentPreview>
+        <CodeBlock code={dropdownMenuSnippets.React.basic} language="tsx" platform="React" />
+      </Section>
 
-        {/* ── With Groups & Labels ── */}
-        <Section
-          title="With Groups & Labels"
-          description="Group related actions under a DropdownMenuLabel header."
-        >
+      <Section
+        title="With Groups & Labels"
+        description="Group related actions under a DropdownMenuLabel header."
+      >
+        <ComponentPreview>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button intent="outline">Account</Button>
@@ -119,13 +144,15 @@ export default function DropdownMenuPage() {
               <DropdownMenuItem variant="destructive">Delete team</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </Section>
+        </ComponentPreview>
+        <CodeBlock code={dropdownMenuSnippets.React.withGroups} language="tsx" platform="React" />
+      </Section>
 
-        {/* ── Checkbox Items ── */}
-        <Section
-          title="Checkbox Items"
-          description="Toggleable options with checkmark indicators."
-        >
+      <Section
+        title="Checkbox Items"
+        description="Toggleable options with checkmark indicators."
+      >
+        <ComponentPreview>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button intent="outline">View options</Button>
@@ -139,13 +166,15 @@ export default function DropdownMenuPage() {
               <DropdownMenuCheckboxItem>Compact mode</DropdownMenuCheckboxItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </Section>
+        </ComponentPreview>
+        <CodeBlock code={dropdownMenuSnippets.React.checkboxItems} language="tsx" platform="React" />
+      </Section>
 
-        {/* ── Radio Items ── */}
-        <Section
-          title="Radio Items"
-          description="Mutually exclusive selection within a group."
-        >
+      <Section
+        title="Radio Items"
+        description="Mutually exclusive selection within a group."
+      >
+        <ComponentPreview>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button intent="outline">Sort by</Button>
@@ -161,13 +190,15 @@ export default function DropdownMenuPage() {
               </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
-        </Section>
+        </ComponentPreview>
+        <CodeBlock code={dropdownMenuSnippets.React.radioItems} language="tsx" platform="React" />
+      </Section>
 
-        {/* ── Submenu ── */}
-        <Section
-          title="With Submenu"
-          description="Nested menu using DropdownMenuSub + SubTrigger + SubContent."
-        >
+      <Section
+        title="Submenu"
+        description="Nested menu using DropdownMenuSub + SubTrigger + SubContent."
+      >
+        <ComponentPreview>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button intent="outline">More actions</Button>
@@ -196,64 +227,144 @@ export default function DropdownMenuPage() {
               <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </Section>
+        </ComponentPreview>
+        <CodeBlock code={dropdownMenuSnippets.React.submenu} language="tsx" platform="React" />
+      </Section>
 
-        {/* ── Icon items ── */}
-        <Section
-          title="With Icons"
-          description="Place a small SVG icon before the label. It auto-sizes to size-4."
-        >
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button intent="outline">File</Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M9 2H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6L9 2z" />
-                  <path d="M9 2v4h4" />
-                </svg>
-                New file
-                <DropdownMenuShortcut>⌘N</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M2 2h12v8H2z" /><path d="M8 10v4M5 14h6" />
-                </svg>
-                Open
-                <DropdownMenuShortcut>⌘O</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M8 2v9M5 8l3 3 3-3" /><path d="M3 12v2h10v-2" />
-                </svg>
-                Download
-                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem variant="destructive">
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M2 4h12M5 4V2h6v2M6 7v5M10 7v5M3 4l1 9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-9" />
-                </svg>
-                Move to trash
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </Section>
+      <Section title="Props">
+        <PropsTable props={dropdownMenuProps} />
+      </Section>
+    </div>
+  );
+}
 
-        {/* ── Guideline ── */}
-        <section className="rounded-xl border border-border bg-muted/20 p-6 space-y-3">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Usage Guidelines
-          </h2>
-          <ul className="space-y-1.5 text-sm text-muted-foreground list-disc list-inside">
-            <li>Use <code className="font-mono text-xs bg-muted px-1 rounded">asChild</code> on <strong>DropdownMenuTrigger</strong> to style any element as the trigger.</li>
-            <li>Place <strong>destructive</strong> actions at the bottom, always separated by a DropdownMenuSeparator.</li>
-            <li>Use <strong>DropdownMenuShortcut</strong> for discoverable keyboard shortcuts — don&apos;t rely solely on them.</li>
-            <li>Limit to 2 levels of nesting (sub → sub). Deeper nesting is hard to navigate.</li>
-            <li>Group related items with <strong>DropdownMenuLabel</strong> — keep labels concise and sentence-case.</li>
-          </ul>
-        </section>
+// ── TV platform content ────────────────────────────────────────────────────
+
+function TVContent() {
+  return (
+    <div className="space-y-10 pt-6">
+      <Section
+        title="Installation"
+        description="TV apps typically use a focus-managed menu or dialog instead of a pointer-based dropdown."
+      >
+        <CodeBlock code={dropdownMenuSnippets.TV.installation} language="ts" platform="TV" />
+      </Section>
+
+      <Section
+        title="Basic Usage"
+        description="Recommended TV alternative pattern using D-pad navigable items."
+      >
+        <CodeBlock code={dropdownMenuSnippets.TV.basic} language="tsx" platform="TV" />
+      </Section>
+    </div>
+  );
+}
+
+// ── Mobile Web platform content ────────────────────────────────────────────
+
+function MobileWebContent() {
+  return (
+    <div className="space-y-10 pt-6">
+      <Section
+        title="Installation"
+        description="Same import as React — no platform-specific build needed for Mobile Web."
+      >
+        <CodeBlock code={dropdownMenuSnippets["Mobile Web"].installation} language="ts" platform="Mobile Web" />
+      </Section>
+
+      <Section
+        title="Basic Usage"
+        description="For small option sets (3-5 items), dropdown is acceptable. Consider Sheet for larger lists."
+      >
+        <CodeBlock code={dropdownMenuSnippets["Mobile Web"].basic} language="tsx" platform="Mobile Web" />
+      </Section>
+    </div>
+  );
+}
+
+// ── Android platform content ───────────────────────────────────────────────
+
+function AndroidContent() {
+  return (
+    <div className="space-y-10 pt-6">
+      <NativeNote platform="Android" />
+
+      <Section title="Installation">
+        <CodeBlock code={dropdownMenuSnippets.Android.installation} language="kotlin" platform="Android" filename="Compose imports" />
+      </Section>
+
+      <Section title="Basic Usage">
+        <CodeBlock code={dropdownMenuSnippets.Android.basic} language="kotlin" platform="Android" />
+      </Section>
+
+      <Section title="Color Tokens">
+        <CodeBlock code={dropdownMenuSnippets.Android.colors} language="kotlin" platform="Android" filename="res/values/colors.xml" />
+      </Section>
+
+      <Section title="Props">
+        <PropsTable props={dropdownMenuProps} />
+      </Section>
+    </div>
+  );
+}
+
+// ── iOS platform content ───────────────────────────────────────────────────
+
+function IOSContent() {
+  return (
+    <div className="space-y-10 pt-6">
+      <NativeNote platform="iOS" />
+
+      <Section title="Installation">
+        <CodeBlock code={dropdownMenuSnippets.iOS.installation} language="swift" platform="iOS" filename="Xcode setup" />
+      </Section>
+
+      <Section title="Basic Usage">
+        <CodeBlock code={dropdownMenuSnippets.iOS.basic} language="swift" platform="iOS" />
+      </Section>
+
+      <Section title="Color Tokens">
+        <CodeBlock code={dropdownMenuSnippets.iOS.colors} language="swift" platform="iOS" filename="Colors.swift" />
+      </Section>
+
+      <Section title="Props">
+        <PropsTable props={dropdownMenuProps} />
+      </Section>
+    </div>
+  );
+}
+
+// ── Page ─────────────────────────────────────────────────────────────────────
+
+export default function DropdownMenuPage() {
+  return (
+    <main className="min-h-screen bg-background">
+      <div className="mx-auto max-w-4xl space-y-10 px-6 py-10">
+
+        {/* ── Static header ──────────────────────────────────────── */}
+        <header className="space-y-2 border-b border-border pb-8">
+          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            vidikit · components
+          </p>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground">Dropdown Menu</h1>
+          <p className="text-base text-muted-foreground">
+            Contextual menu with items, groups, labels, shortcuts, checkboxes, radio items, and submenus.
+          </p>
+        </header>
+
+        {/* ── Platform tabs control the ENTIRE page content ──────── */}
+        <Suspense fallback={null}>
+          <PlatformTabs
+            platforms={["React", "TV", "Mobile Web", "Android", "iOS"]}
+            snippets={{
+              React:        <ReactContent />,
+              TV:           <TVContent />,
+              "Mobile Web": <MobileWebContent />,
+              Android:      <AndroidContent />,
+              iOS:          <IOSContent />,
+            }}
+          />
+        </Suspense>
 
       </div>
     </main>

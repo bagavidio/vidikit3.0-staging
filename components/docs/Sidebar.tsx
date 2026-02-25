@@ -10,7 +10,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronRight } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import {
   Collapsible,
   CollapsibleTrigger,
@@ -56,7 +57,7 @@ export function DocsSidebar() {
                 <SidebarGroupLabel asChild>
                   <CollapsibleTrigger className="flex w-full items-center">
                     <span className="flex-1 text-left">{group.title}</span>
-                    <ChevronRight className="size-3.5 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    <HugeiconsIcon icon={ArrowRight01Icon} className="size-3.5 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                   </CollapsibleTrigger>
                 </SidebarGroupLabel>
                 <CollapsibleContent>

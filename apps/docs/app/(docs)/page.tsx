@@ -2,7 +2,7 @@
  * VIDI Design System — Landing Page
  * ─────────────────────────────────────────────────────────────
  * Interactive hero with cursor-following glow + Framer Motion
- * entrance animations. Three content sections below.
+ * entrance animations. Four content sections below.
  * Route: / (wrapped by (docs)/layout for sidebar + topnav)
  */
 
@@ -17,7 +17,11 @@ import {
   useTransform,
 } from "framer-motion";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Layers01Icon, CodeIcon, GridViewIcon, ArrowRight01Icon, Shield01Icon, SparklesIcon, ChartIncreaseIcon } from "@hugeicons/core-free-icons";
+import {
+  Layers01Icon, CodeIcon, GridViewIcon, RulerIcon,
+  ArrowRight01Icon, Shield01Icon, SparklesIcon, ChartIncreaseIcon,
+  MessageMultiple01Icon,
+} from "@hugeicons/core-free-icons";
 import { Button } from "@vidikit/ui-react";
 import { docsLinks } from "@/config/docs";
 
@@ -47,17 +51,23 @@ const shortcuts: ShortcutCard[] = [
     href: "/foundations/colors",
   },
   {
+    icon: <HugeiconsIcon icon={GridViewIcon} className="size-5" />,
+    title: "Components",
+    description: "UI components built with shadcn/ui, CVA variants, and VIDI design tokens.",
+    href: "/components/button",
+  },
+  {
+    icon: <HugeiconsIcon icon={RulerIcon} className="size-5" />,
+    title: "Tokens",
+    description: "Aspect ratios, breakpoints, spacing scales, and platform-specific token exports.",
+    href: "/components/aspect-ratio",
+  },
+  {
     icon: <HugeiconsIcon icon={CodeIcon} className="size-5" />,
     title: "Source Code",
     description: "Browse the GitHub repository, contribute, and explore the full codebase.",
     href: docsLinks.github,
     external: true,
-  },
-  {
-    icon: <HugeiconsIcon icon={GridViewIcon} className="size-5" />,
-    title: "Components",
-    description: "UI components built with shadcn/ui, CVA variants, and VIDI design tokens.",
-    href: "/components/button",
   },
 ];
 
@@ -113,7 +123,6 @@ function HeroSection() {
   const springX = useSpring(rawX, { stiffness: 60, damping: 20 });
   const springY = useSpring(rawY, { stiffness: 60, damping: 20 });
 
-  // Translate to % offset from center for the glow
   const glowX = useTransform(springX, (v) => `calc(${v}px - 50%)`);
   const glowY = useTransform(springY, (v) => `calc(${v}px - 50%)`);
 
@@ -136,7 +145,7 @@ function HeroSection() {
       ref={heroRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative overflow-hidden rounded-2xl border border-border/40 bg-card/30 px-8 py-14 sm:px-14 sm:py-20"
+      className="relative px-8 py-14 sm:px-14 sm:py-20"
     >
       {/* Cursor-following ambient glow */}
       <motion.div
@@ -177,7 +186,6 @@ function HeroSection() {
           animate="show"
           custom={0.08}
         >
-          The{" "}
           <span
             style={{
               background: "linear-gradient(135deg, var(--red-40) 0%, var(--red-50) 60%)",
@@ -233,7 +241,7 @@ export default function HomePage() {
       {/* ── Section 1: Interactive Hero ───────────────────────────── */}
       <HeroSection />
 
-      {/* ── Section 2: Quick Shortcuts ───────────────────────────── */}
+      {/* ── Section 2: Short Cut ──────────────────────────────────── */}
       <section className="space-y-5">
         <motion.h2
           className="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
@@ -243,10 +251,10 @@ export default function HomePage() {
           viewport={{ once: true }}
           custom={0}
         >
-          Quick Access
+          Short Cut
         </motion.h2>
         <motion.div
-          className="grid grid-cols-1 gap-3 sm:grid-cols-3"
+          className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
           variants={stagger}
           initial="hidden"
           whileInView="show"
@@ -259,7 +267,9 @@ export default function HomePage() {
                 className="group flex h-full flex-col gap-4 rounded-xl border border-border bg-card p-5 transition-colors hover:border-red-50/40 hover:bg-card/80"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-red-50">{card.icon}</span>
+                  <span className="flex size-8 items-center justify-center rounded-lg bg-red-50/10 text-red-50">
+                    {card.icon}
+                  </span>
                   <HugeiconsIcon icon={ArrowRight01Icon} className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
                 </div>
                 <div className="space-y-1.5">
@@ -291,7 +301,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Section 3: Design System Principles ─────────────────── */}
-      <section className="space-y-5">
+      <section id="principles" className="scroll-mt-20 space-y-5">
         <motion.h2
           className="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
           variants={fadeUp}
@@ -322,6 +332,45 @@ export default function HomePage() {
               </div>
             </motion.div>
           ))}
+        </motion.div>
+      </section>
+
+      {/* ── Section 4: Contact Us ─────────────────────────────────── */}
+      <section className="space-y-5">
+        <motion.h2
+          className="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          custom={0}
+        >
+          Contact Us
+        </motion.h2>
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          custom={0.08}
+        >
+          <a
+            href="https://chat.google.com/room/AAAAhjgpvX8?cls=7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-4 rounded-xl border border-border bg-card p-5 transition-colors hover:border-red-50/40 hover:bg-card/80"
+          >
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-red-50/10 text-red-50">
+              <HugeiconsIcon icon={MessageMultiple01Icon} className="size-5" />
+            </span>
+            <div className="space-y-1">
+              <p className="text-sm font-semibold text-foreground">Improvements &amp; Feedback</p>
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                Join our Google Chat room to suggest improvements, report issues, or share feedback on the design system.
+              </p>
+            </div>
+            <HugeiconsIcon icon={ArrowRight01Icon} className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+          </a>
         </motion.div>
       </section>
 
